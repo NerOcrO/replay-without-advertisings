@@ -1,0 +1,10 @@
+<ul class="list-group list-unstyled">
+  <% variables.forEach((value) => { %>
+    <li class="media">
+      <a href="<%- value.url %>" class="list-group-item list-group-item-action">
+        <img src="<%- value.image %>" class="mr-3 float-left">
+        <span class="h4"><%- value.label %></span>
+      </a>
+    </li>
+  <% }) %>
+</ul>

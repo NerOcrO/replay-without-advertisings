@@ -1,0 +1,9 @@
+<ul class="list-group list-unstyled">
+  <% variables.channels.forEach((channel) => { %>
+    <li>
+      <a href="<%- channel.url %>" class="list-group-item list-group-item-action">
+        <span class="h4"><%- channel.label %></span>
+      </a>
+    </li>
+  <% }) %>
+</ul>
