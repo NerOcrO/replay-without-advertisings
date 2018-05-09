@@ -9,12 +9,12 @@ module.exports = {
 
       const channels = []
 
-      JSON.parse(data).channels.forEach((value) => {
+      for (const channel of JSON.parse(data).channels) {
         channels.push({
-          url: `${global.language}/channel/${value.id}`,
-          label: value.label
+          url: `${global.language}/channel/${channel.id}`,
+          label: channel.label
         })
-      })
+      }
 
       response.render('layout', {
         page: 'channel',
@@ -68,9 +68,9 @@ module.exports = {
     }
 
     if (words.length > 0) {
-      words.forEach((value) => {
-        string = string.replace(/@@([a-z]*)@@/, value)
-      })
+      for (const word of words) {
+        string = string.replace(/@@([a-z]*)@@/, word)
+      }
     }
 
     return string

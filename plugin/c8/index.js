@@ -26,19 +26,19 @@ module.exports = {
       res.setEncoding('utf8')
       res.on('data', (chunk) => { rawData += chunk })
       res.on('end', () => {
-        const variables = []
-
         try {
+          const variables = []
+
           // JSON parsing.
-          JSON.parse(rawData).strates[0].contents.forEach((value) => {
-            const idShow = value.onClick.URLPage.match(/(\d+).json/)
+          for (const program of JSON.parse(rawData).strates[0].contents) {
+            const idShow = program.onClick.URLPage.match(/(\d+).json/)
 
             variables.push({
               url: `/${global.language}/channel/${idChannel}/show/${idShow[1]}`,
-              label: value.onClick.displayName,
-              image: value.URLImageCompact
+              label: program.onClick.displayName,
+              image: program.URLImageCompact
             })
-          })
+          }
 
           response.render('layout', {
             page: 'show',
@@ -87,12 +87,12 @@ module.exports = {
           const data = JSON.parse(rawData)
 
           // JSON parsing.
-          data.strates.forEach((strate) => {
+          for (const strate of data.strates) {
             if (strate.type !== 'contentRow') {
-              return
+              continue
             }
 
-            strate.contents.forEach((value) => {
+            for (const value of strate.contents) {
               const idVideo = value.onClick.URLPage.match(/(\d+).json/)
 
               variables.push({
@@ -100,8 +100,8 @@ module.exports = {
                 label: value.onClick.displayName,
                 image: value.URLImage
               })
-            })
-          })
+            }
+          }
 
           response.render('layout', {
             page: 'videos',

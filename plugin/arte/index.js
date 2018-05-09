@@ -32,17 +32,17 @@ module.exports = {
           const temp = []
 
           // JSON parsing.
-          JSON.parse(rawData).programs.forEach((value) => {
-            if (temp.indexOf(value.program.genrePresseCode) == -1) {
-              temp.push(value.program.genrePresseCode)
+          for (const program of JSON.parse(rawData).programs) {
+            if (temp.indexOf(program.program.genrePresseCode) == -1) {
+              temp.push(program.program.genrePresseCode)
 
               variables.push({
-                url: `/${global.language}/channel/${idChannel}/show/${value.program.genrePresseCode}`,
-                label: value.program.genrePresse,
-                image: value.program.imageUrl
+                url: `/${global.language}/channel/${idChannel}/show/${program.program.genrePresseCode}`,
+                label: program.program.genrePresse,
+                image: program.program.imageUrl
               })
             }
-          })
+          }
 
           response.render('layout', {
             page: 'show',
@@ -91,9 +91,9 @@ module.exports = {
           let programTitle = ''
 
           // JSON parsing.
-          JSON.parse(rawData).programs.forEach((program) => {
+          for (const program of JSON.parse(rawData).programs) {
             if (program.program.genrePresseCode !== parseInt(idShow)) {
-              return
+              continue
             }
 
             if (program.video) {
@@ -104,7 +104,7 @@ module.exports = {
                 image: program.video.imageUrl
               })
             }
-          })
+          }
 
           response.render('layout', {
             page: 'videos',
@@ -149,7 +149,7 @@ module.exports = {
       res.on('data', (chunk) => { rawData += chunk })
       res.on('end', () => {
         try {
-          JSON.parse(rawData).videoStreams.forEach((video) => {
+          for (const video of JSON.parse(rawData).videoStreams) {
             if (video.quality === 'HQ' && (video.audioShortLabel === 'VF' || video.audioShortLabel === 'VOF')) {
               const urlVideo = video.url
 
@@ -165,8 +165,7 @@ module.exports = {
                 urlVideo
               })
             }
-          })
-
+          }
         }
         catch (error) {
           console.error(error.message)
