@@ -1,4 +1,3 @@
-const router = require('express').Router()
 const http = require('http')
 const tools = require('../../tools')
 
