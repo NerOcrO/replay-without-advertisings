@@ -7,7 +7,7 @@ router.get('/', (request, response) => {
 })
 
 router.get('/:langcode', (request, response) => {
-  global.logger = request.params.langcode
+  global.language = request.params.langcode
   tools.getHome(request, response)
 })
 
@@ -28,19 +28,19 @@ router.get('/channel/:idChannel/show/:idShow/video/:idVideo', (request, response
 
 // Show's route.
 router.get('/:langcode/channel/:idChannel', (request, response) => {
-  global.logger = request.params.langcode
+  global.language = request.params.langcode
   tools.getPlugin(request, response, 'show')
 })
 
 // Videos's route.
 router.get('/:langcode/channel/:idChannel/show/:idShow', (request, response) => {
-  global.logger = request.params.langcode
+  global.language = request.params.langcode
   tools.getPlugin(request, response, 'videos')
 })
 
 // Video's route.
 router.get('/:langcode/channel/:idChannel/show/:idShow/video/:idVideo', (request, response) => {
-  global.logger = request.params.langcode
+  global.language = request.params.langcode
   tools.getPlugin(request, response, 'video')
 })
 

@@ -3,7 +3,7 @@ const app = express()
 const replay_dir = require(`${__dirname}/controller/replay`)
 
 // English by default.
-global.logger = 'en'
+global.language = 'en'
 
 // Templating by default.
 app.set('view engine', 'ejs')

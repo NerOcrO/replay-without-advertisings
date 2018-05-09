@@ -11,7 +11,7 @@ module.exports = {
 
       JSON.parse(data).channels.forEach((value) => {
         channels.push({
-          url: `${global.logger}/channel/${value.id}`,
+          url: `${global.language}/channel/${value.id}`,
           label: value.label
         })
       })
@@ -61,8 +61,8 @@ module.exports = {
   },
 
   t(string, words = {}) {
-    if (global.logger !== 'en') {
-      const language = fs.readFileSync(`./language/${global.logger}.json`, 'utf8')
+    if (global.language !== 'en') {
+      const language = fs.readFileSync(`./language/${global.language}.json`, 'utf8')
 
       string = JSON.parse(language)[string] ? JSON.parse(language)[string] : string
     }

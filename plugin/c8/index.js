@@ -10,7 +10,7 @@ module.exports = {
     // Channel's ID.
     const idChannel = request.params.idChannel
     // Channel's URL.
-    const urlChannel = `/${global.logger}/channel/${idChannel}`
+    const urlChannel = `/${global.language}/channel/${idChannel}`
     // URL.
     const url = this.urlShow
 
@@ -34,7 +34,7 @@ module.exports = {
             const idShow = value.onClick.URLPage.match(/(\d+).json/)
 
             variables.push({
-              url: `/${global.logger}/channel/${idChannel}/show/${idShow[1]}`,
+              url: `/${global.language}/channel/${idChannel}/show/${idShow[1]}`,
               label: value.onClick.displayName,
               image: value.URLImageCompact
             })
@@ -64,9 +64,9 @@ module.exports = {
     // Show's ID.
     const idShow = request.params.idShow
     // Channel's URL.
-    const urlChannel = `/${global.logger}/channel/${idChannel}`
+    const urlChannel = `/${global.language}/channel/${idChannel}`
     // Show's URL.
-    const urlShow = `/${global.logger}/channel/${idChannel}/show/${idShow}`
+    const urlShow = `/${global.language}/channel/${idChannel}/show/${idShow}`
     // URL.
     const url = this.urlVideos.replace(/{{ID}}/, idShow)
 
@@ -96,7 +96,7 @@ module.exports = {
               const idVideo = value.onClick.URLPage.match(/(\d+).json/)
 
               variables.push({
-                url: `/${global.logger}/channel/${idChannel}/show/${idShow}/video/${idVideo[1]}`,
+                url: `/${global.language}/channel/${idChannel}/show/${idShow}/video/${idVideo[1]}`,
                 label: value.onClick.displayName,
                 image: value.URLImage
               })
@@ -127,9 +127,9 @@ module.exports = {
     // Channel's ID.
     const idChannel = request.params.idChannel
     // Channel's URL.
-    const urlChannel = `/${global.logger}/channel/${idChannel}`
+    const urlChannel = `/${global.language}/channel/${idChannel}`
     // Show's URL.
-    const urlShow = `/${global.logger}/channel/${idChannel}/show/${request.params.idShow}`
+    const urlShow = `/${global.language}/channel/${idChannel}/show/${request.params.idShow}`
     // URL.
     const url = this.urlVideo.replace(/{{ID}}/, request.params.idVideo)
 

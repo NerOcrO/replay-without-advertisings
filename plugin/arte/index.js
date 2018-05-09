@@ -11,7 +11,7 @@ module.exports = {
     // Channel's ID.
     const idChannel = request.params.idChannel
     // Channel's URL.
-    const urlChannel = `/${global.logger}/channel/${idChannel}`
+    const urlChannel = `/${global.language}/channel/${idChannel}`
     // URL.
     const url = this.urlShow.replace(/{{DATE}}/, `${this.date.getFullYear()}${this.date.getMonth()}${this.date.getDay()}`)
 
@@ -37,7 +37,7 @@ module.exports = {
               temp.push(value.program.genrePresseCode)
 
               variables.push({
-                url: `/${global.logger}/channel/${idChannel}/show/${value.program.genrePresseCode}`,
+                url: `/${global.language}/channel/${idChannel}/show/${value.program.genrePresseCode}`,
                 label: value.program.genrePresse,
                 image: value.program.imageUrl
               })
@@ -68,9 +68,9 @@ module.exports = {
     // Show's ID.
     const idShow = request.params.idShow
     // Channel's URL.
-    const urlChannel = `/${global.logger}/channel/${idChannel}`
+    const urlChannel = `/${global.language}/channel/${idChannel}`
     // Show's URL.
-    const urlShow = `/${global.logger}/channel/${idChannel}/show/${idShow}`
+    const urlShow = `/${global.language}/channel/${idChannel}/show/${idShow}`
     // URL.
     const url = this.urlVideos.replace(/{{DATE}}/, `${this.date.getFullYear()}${this.date.getMonth()}${this.date.getDay()}`)
 
@@ -99,7 +99,7 @@ module.exports = {
             if (program.video) {
               programTitle = program.program.genrePresse
               variables.push({
-                url: `/${global.logger}/channel/${idChannel}/show/${idShow}/video/${program.video.programId}%2F${program.video.kind}`,
+                url: `/${global.language}/channel/${idChannel}/show/${idShow}/video/${program.video.programId}%2F${program.video.kind}`,
                 label: `${program.video.title} <span class="h6">[${program.broadcast.durationRounded / 60} min]</span>`,
                 image: program.video.imageUrl
               })
@@ -130,9 +130,9 @@ module.exports = {
     // Channel's ID.
     const idChannel = request.params.idChannel
     // Channel's URL.
-    const urlChannel = `/${global.logger}/channel/${idChannel}`
+    const urlChannel = `/${global.language}/channel/${idChannel}`
     // Show's URL.
-    const urlShow = `/${global.logger}/channel/${idChannel}/show/${request.params.idShow}`
+    const urlShow = `/${global.language}/channel/${idChannel}/show/${request.params.idShow}`
     // URL.
     const url = this.urlVideo.replace(/{{ID}}/, request.params.idVideo)
 
