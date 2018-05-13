@@ -25,6 +25,12 @@ Just create a channels.json to the root like this:
 
 Then go to your web browser : http://localhost:8080/
 
+## DEBUG MODE
+
+> DEBUG=tools node app.js
+or
+> DEBUG=* node app.js
+
 ## HOW TO CREATE A PLUGIN?
 
 Just make a directory and associate it a index.js file, that's all!

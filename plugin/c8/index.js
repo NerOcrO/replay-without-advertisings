@@ -1,3 +1,4 @@
+const debug = require('debug')('tools')
 const http = require('http')
 const tools = require('../../tools')
 
@@ -16,7 +17,7 @@ module.exports = {
 
     // Get the JSON.
     http.get(url, (res) => {
-      console.log(tools.t('Show: @@url@@', [url]))
+      debug(tools.t('Show: @@url@@', [url]))
 
       if (!tools.hasError(response, res)) {
         return
@@ -54,7 +55,7 @@ module.exports = {
         }
       })
     }).on('error', (error) => {
-      console.log(tools.t('Got error: @@message@@', [error.message]))
+      console.error(tools.t('Got error: @@message@@', [error.message]))
     })
   },
 
@@ -72,7 +73,7 @@ module.exports = {
 
     // Get the JSON.
     http.get(url, (res) => {
-      console.log(tools.t('Videos: @@url@@', [url]))
+      debug(tools.t('Videos: @@url@@', [url]))
 
       if (!tools.hasError(response, res)) {
         return
@@ -119,7 +120,7 @@ module.exports = {
         }
       })
     }).on('error', (error) => {
-      console.log(tools.t('Got error: @@message@@', [error.message]))
+      console.error(tools.t('Got error: @@message@@', [error.message]))
     })
   },
 
@@ -135,7 +136,7 @@ module.exports = {
 
     // Get the JSON.
     http.get(url, (res) => {
-      console.log(tools.t('Video: @@url@@', [url]))
+      debug(tools.t('Video: @@url@@', [url]))
 
       if (!tools.hasError(response, res)) {
         return
@@ -167,7 +168,7 @@ module.exports = {
         }
       })
     }).on('error', (error) => {
-      console.log(tools.t('Got error: @@message@@', [error.message]))
+      console.error(tools.t('Got error: @@message@@', [error.message]))
     })
   }
 }

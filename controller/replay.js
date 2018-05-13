@@ -1,5 +1,5 @@
-const router = require('express').Router()
 const fs = require('fs')
+const router = require('express').Router()
 const tools = require('../tools')
 
 router.get('/', (request, response) => {
