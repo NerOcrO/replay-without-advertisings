@@ -1,7 +1,6 @@
 'use strict'
 
 const express = require('express')
-const favicon = require('serve-favicon')
 const replay_dir = require('./controller/replay')
 
 const app = express()
@@ -16,8 +15,8 @@ app.set('views', './view')
 // I don't want to see x-powered-by...
 app.set('x-powered-by', false)
 
-// Favicon.
-app.use(favicon('./public/favicon.ico'))
+// Static files.
+app.use(express.static('public'))
 
 // Routing.
 app.use('/', replay_dir)
