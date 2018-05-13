@@ -3,7 +3,8 @@ const http = require('http')
 const path = require('path')
 const utils = require('../../lib/utils')
 
-channel = {
+const channel = module.exports = {
+
   urlShow: 'http://service.mycanal.fr/page/f7a409073d5e935fd5ee776ae284b644/4578.json',
   urlVideos: 'http://service.mycanal.fr/page/f7a409073d5e935fd5ee776ae284b644/{{ID}}.json',
   urlVideo: 'http://service.mycanal.fr/getMediaUrl/f7a409073d5e935fd5ee776ae284b644/{{ID}}.json?pfv={FORMAT}',
@@ -32,7 +33,9 @@ channel = {
 
       let rawData = ''
       res.setEncoding('utf8')
-      res.on('data', (chunk) => { rawData += chunk })
+      res.on('data', (chunk) => {
+        rawData += chunk
+      })
       res.on('end', () => {
         try {
           const variables = []
@@ -94,7 +97,9 @@ channel = {
 
       let rawData = ''
       res.setEncoding('utf8')
-      res.on('data', (chunk) => { rawData += chunk })
+      res.on('data', (chunk) => {
+        rawData += chunk
+      })
       res.on('end', () => {
         try {
           const variables = []
@@ -163,7 +168,9 @@ channel = {
 
       let rawData = ''
       res.setEncoding('utf8')
-      res.on('data', (chunk) => { rawData += chunk })
+      res.on('data', (chunk) => {
+        rawData += chunk
+      })
       res.on('end', () => {
         try {
           const data = JSON.parse(rawData)
@@ -190,6 +197,5 @@ channel = {
       console.error(utils.t('Got error: @@message@@', [error.message]))
     })
   }
-}
 
-module.exports = channel
+}

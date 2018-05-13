@@ -3,7 +3,8 @@ const http = require('http')
 const path = require('path')
 const utils = require('../../lib/utils')
 
-channel = {
+const channel = module.exports = {
+
   date: new Date(),
   urlShow: 'http://www.arte.tv/hbbtvv2/services/web/index.php/OPA/v3/programs/{{DATE}}/fr',
   urlVideos: 'http://www.arte.tv/hbbtvv2/services/web/index.php/OPA/v3/programs/{{DATE}}/fr',
@@ -33,7 +34,9 @@ channel = {
 
       let rawData = ''
       res.setEncoding('utf8')
-      res.on('data', (chunk) => { rawData += chunk })
+      res.on('data', (chunk) => {
+        rawData += chunk
+      })
       res.on('end', () => {
         try {
           const variables = []
@@ -98,7 +101,9 @@ channel = {
 
       let rawData = ''
       res.setEncoding('utf8')
-      res.on('data', (chunk) => { rawData += chunk })
+      res.on('data', (chunk) => {
+        rawData += chunk
+      })
       res.on('end', () => {
         try {
           const variables = []
@@ -166,7 +171,9 @@ channel = {
 
       let rawData = ''
       res.setEncoding('utf8')
-      res.on('data', (chunk) => { rawData += chunk })
+      res.on('data', (chunk) => {
+        rawData += chunk
+      })
       res.on('end', () => {
         try {
           for (const video of JSON.parse(rawData).videoStreams) {
@@ -196,6 +203,5 @@ channel = {
       console.error(utils.t('Got error: @@message@@', [error.message]))
     })
   }
-}
 
-module.exports = channel
+}
