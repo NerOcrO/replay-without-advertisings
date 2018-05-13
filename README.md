@@ -27,7 +27,7 @@ Then go to your web browser : http://localhost:8080/
 
 ## DEBUG MODE
 
-> DEBUG=tools node app.js
+> DEBUG=utils node app.js
 or
 > DEBUG=* node app.js
 

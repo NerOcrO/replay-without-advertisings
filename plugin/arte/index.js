@@ -1,9 +1,9 @@
-const debug = require('debug')('tools')
+const debug = require('debug')('utils')
 const http = require('http')
 const path = require('path')
-const tools = require('../../tools')
+const utils = require('../../lib/utils')
 
-module.exports = {
+channel = {
   date: new Date(),
   urlShow: 'http://www.arte.tv/hbbtvv2/services/web/index.php/OPA/v3/programs/{{DATE}}/fr',
   urlVideos: 'http://www.arte.tv/hbbtvv2/services/web/index.php/OPA/v3/programs/{{DATE}}/fr',
@@ -19,9 +19,9 @@ module.exports = {
 
     // Get the JSON.
     http.get(url, (res) => {
-      debug(tools.t('Show: @@url@@', [url]))
+      debug(utils.t('Show: @@url@@', [url]))
 
-      if (!tools.hasError(response, res)) {
+      if (!utils.hasError(response, res)) {
         return
       }
 
@@ -48,19 +48,19 @@ module.exports = {
 
           response.render('layout', {
             page: 'show',
-            title: tools.t('The show'),
-            titleChannels: tools.t('The channels'),
+            title: utils.t('The show'),
+            titleChannels: utils.t('The channels'),
             urlChannel,
             variables
           })
         }
         catch (error) {
           console.error(error.message)
-          response.status(500).send(tools.t('Sorry, there is something wrong!'))
+          response.status(500).send(utils.t('Sorry, there is something wrong!'))
         }
       })
     }).on('error', (error) => {
-      console.error(tools.t('Got error: @@message@@', [error.message]))
+      console.error(utils.t('Got error: @@message@@', [error.message]))
     })
   },
 
@@ -78,9 +78,9 @@ module.exports = {
 
     // Get the JSON.
     http.get(url, (res) => {
-      debug(tools.t('Videos: @@url@@', [url]))
+      debug(utils.t('Videos: @@url@@', [url]))
 
-      if (!tools.hasError(response, res)) {
+      if (!utils.hasError(response, res)) {
         return
       }
 
@@ -111,8 +111,8 @@ module.exports = {
           response.render('layout', {
             page: 'videos',
             title: programTitle,
-            titleChannels: tools.t('The channels'),
-            titleShow: tools.t('The show'),
+            titleChannels: utils.t('The channels'),
+            titleShow: utils.t('The show'),
             urlChannel,
             urlShow,
             variables
@@ -120,11 +120,11 @@ module.exports = {
         }
         catch (error) {
           console.error(error.message)
-          response.status(500).send(tools.t('Sorry, there is something wrong!'))
+          response.status(500).send(utils.t('Sorry, there is something wrong!'))
         }
       })
     }).on('error', (error) => {
-      console.error(tools.t('Got error: @@message@@', [error.message]))
+      console.error(utils.t('Got error: @@message@@', [error.message]))
     })
   },
 
@@ -140,9 +140,9 @@ module.exports = {
 
     // Get the JSON.
     http.get(url, (res) => {
-      debug(tools.t('Video: @@url@@', [url]))
+      debug(utils.t('Video: @@url@@', [url]))
 
-      if (!tools.hasError(response, res)) {
+      if (!utils.hasError(response, res)) {
         return
       }
 
@@ -157,11 +157,11 @@ module.exports = {
 
               response.render('layout', {
                 page: 'video',
-                title: tools.t('The video'),
-                titleChannels: tools.t('The channels'),
-                titleShow: tools.t('The show'),
-                titleVideos: tools.t('The videos'),
-                download: tools.t('Download the video'),
+                title: utils.t('The video'),
+                titleChannels: utils.t('The channels'),
+                titleShow: utils.t('The show'),
+                titleVideos: utils.t('The videos'),
+                download: utils.t('Download the video'),
                 urlChannel,
                 urlShow,
                 urlVideo
@@ -171,11 +171,13 @@ module.exports = {
         }
         catch (error) {
           console.error(error.message)
-          response.status(500).send(tools.t('Sorry, there is something wrong!'))
+          response.status(500).send(utils.t('Sorry, there is something wrong!'))
         }
       })
     }).on('error', (error) => {
-      console.error(tools.t('Got error: @@message@@', [error.message]))
+      console.error(utils.t('Got error: @@message@@', [error.message]))
     })
   }
 }
+
+module.exports = channel
