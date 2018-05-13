@@ -25,7 +25,7 @@ module.exports = {
   },
 
   getPlugin(request, response, method) {
-    const path = `${__dirname}/plugin/${request.params.idChannel}/index.js`
+    const path = `./plugin/${request.params.idChannel}/index.js`
 
     if (fs.existsSync(path)) {
       const plugin = require(path)
