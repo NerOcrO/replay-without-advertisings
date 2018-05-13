@@ -9,6 +9,12 @@ channel = {
   urlVideos: 'http://www.arte.tv/hbbtvv2/services/web/index.php/OPA/v3/programs/{{DATE}}/fr',
   urlVideo: 'http://www.arte.tv/hbbtvv2/services/web/index.php/OPA/v3/streams/{{ID}}/fr',
 
+  /**
+   * Show's page.
+   *
+   * @param {object} request
+   * @param {object} response
+   */
   show(request, response) {
     // Channel's ID.
     const idChannel = request.params.idChannel
@@ -64,6 +70,12 @@ channel = {
     })
   },
 
+  /**
+   * Videos page.
+   *
+   * @param {object} request
+   * @param {object} response
+   */
   videos(request, response) {
     // Channel's ID.
     const idChannel = request.params.idChannel
@@ -128,6 +140,12 @@ channel = {
     })
   },
 
+  /**
+   * Video's page.
+   *
+   * @param {object} request
+   * @param {object} response
+   */
   video(request, response) {
     // Channel's ID.
     const idChannel = request.params.idChannel

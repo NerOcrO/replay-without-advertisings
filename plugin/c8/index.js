@@ -8,6 +8,12 @@ channel = {
   urlVideos: 'http://service.mycanal.fr/page/f7a409073d5e935fd5ee776ae284b644/{{ID}}.json',
   urlVideo: 'http://service.mycanal.fr/getMediaUrl/f7a409073d5e935fd5ee776ae284b644/{{ID}}.json?pfv={FORMAT}',
 
+  /**
+   * Show's page.
+   *
+   * @param {object} request
+   * @param {object} response
+   */
   show(request, response) {
     // Channel's ID.
     const idChannel = request.params.idChannel
@@ -60,6 +66,12 @@ channel = {
     })
   },
 
+  /**
+   * Videos page.
+   *
+   * @param {object} request
+   * @param {object} response
+   */
   videos(request, response) {
     // Channel's ID.
     const idChannel = request.params.idChannel
@@ -125,6 +137,12 @@ channel = {
     })
   },
 
+  /**
+   * Video's page.
+   *
+   * @param {object} request
+   * @param {object} response
+   */
   video(request, response) {
     // Channel's ID.
     const idChannel = request.params.idChannel
