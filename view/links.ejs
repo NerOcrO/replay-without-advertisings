@@ -4,10 +4,10 @@
     <li class="breadcrumb-item"><a href="/"><%- titleChannels %></a></li>
     <% } %>
     <% if (typeof urlShow !== 'undefined') { %>
-    <li class="breadcrumb-item"><a href="<%- urlChannel %>"><%- titleShow %></a></li>
+    <li class="breadcrumb-item"><a href="<%- urlShow %>"><%- titleShow %></a></li>
     <% } %>
-    <% if (typeof urlVideo !== 'undefined') { %>
-    <li class="breadcrumb-item"><a href="<%- urlShow %>"><%- titleVideos %></a></li>
+    <% if (typeof urlVideos !== 'undefined') { %>
+    <li class="breadcrumb-item"><a href="<%- urlVideos %>"><%- titleVideos %></a></li>
     <% } %>
     <li class="breadcrumb-item active" aria-current="page"><%- title %></li>
   </ol>

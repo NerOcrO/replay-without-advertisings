@@ -2,6 +2,7 @@
 
 const express = require('express')
 const replay_dir = require('./controller/replay')
+const utils = require('./lib/utils')
 
 const app = express()
 
@@ -19,7 +20,10 @@ app.set('x-powered-by', false)
 app.use(express.static('public'))
 
 // Routing.
-app.use('/', replay_dir)
+app.use('/:langcode', replay_dir)
+
+// Redirect.
+app.use(utils.redirect)
 
 // Listening to 8080 port.
 app.listen(8080)

@@ -19,8 +19,6 @@ const channel = module.exports = {
   show(request, response) {
     // Channel's ID.
     const idChannel = request.params.idChannel
-    // Channel's URL.
-    const urlChannel = path.join(path.sep, global.language, 'channel', idChannel)
     // URL.
     const url = this.urlShow.replace(/{{DATE}}/, `${this.date.getFullYear()}${this.date.getMonth()}${this.date.getDay()}`)
 
@@ -48,7 +46,7 @@ const channel = module.exports = {
               temp.push(program.program.genrePresseCode)
 
               variables.push({
-                url: path.join(path.sep, global.language, 'channel', idChannel, 'show', String(program.program.genrePresseCode)),
+                url: path.join(idChannel, 'show', String(program.program.genrePresseCode)),
                 label: program.program.genrePresse,
                 image: program.program.imageUrl
               })
@@ -59,7 +57,6 @@ const channel = module.exports = {
             page: 'show',
             title: utils.t('The show'),
             titleChannels: utils.t('The channels'),
-            urlChannel,
             variables
           })
         }
@@ -84,10 +81,8 @@ const channel = module.exports = {
     const idChannel = request.params.idChannel
     // Show's ID.
     const idShow = request.params.idShow
-    // Channel's URL.
-    const urlChannel = path.join(path.sep, global.language, 'channel', idChannel)
     // Show's URL.
-    const urlShow = path.join(path.sep, global.language, 'channel', idChannel, 'show', idShow)
+    const urlShow = path.join(path.sep, global.language, 'channel', idChannel)
     // URL.
     const url = this.urlVideos.replace(/{{DATE}}/, `${this.date.getFullYear()}${this.date.getMonth()}${this.date.getDay()}`)
 
@@ -118,7 +113,7 @@ const channel = module.exports = {
             if (program.video) {
               programTitle = program.program.genrePresse
               variables.push({
-                url: path.join(path.sep, global.language, 'channel', idChannel, 'show', idShow, 'video', `${program.video.programId}%2F${program.video.kind}`),
+                url: path.join(idShow, 'video', `${program.video.programId}%2F${program.video.kind}`),
                 label: `${program.video.title} <span class="h6">[${program.broadcast.durationRounded / 60} min]</span>`,
                 image: program.video.imageUrl
               })
@@ -130,7 +125,6 @@ const channel = module.exports = {
             title: programTitle,
             titleChannels: utils.t('The channels'),
             titleShow: utils.t('The show'),
-            urlChannel,
             urlShow,
             variables
           })
@@ -154,10 +148,10 @@ const channel = module.exports = {
   video(request, response) {
     // Channel's ID.
     const idChannel = request.params.idChannel
-    // Channel's URL.
-    const urlChannel = path.join(path.sep, global.language, 'channel', idChannel)
     // Show's URL.
-    const urlShow = path.join(path.sep, global.language, 'channel', idChannel, 'show', request.params.idShow)
+    const urlShow = path.join(path.sep, global.language, 'channel', idChannel)
+    // Videos URL.
+    const urlVideos = path.join(path.sep, global.language, 'channel', idChannel, 'show', request.params.idShow)
     // URL.
     const url = this.urlVideo.replace(/{{ID}}/, request.params.idVideo)
 
@@ -187,8 +181,8 @@ const channel = module.exports = {
                 titleShow: utils.t('The show'),
                 titleVideos: utils.t('The videos'),
                 download: utils.t('Download the video'),
-                urlChannel,
                 urlShow,
+                urlVideos,
                 urlVideo
               })
             }
