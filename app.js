@@ -1,6 +1,9 @@
+'use strict'
+
 const express = require('express')
-const app = express()
 const replay_dir = require(`${__dirname}/controller/replay`)
+
+const app = express()
 
 // English by default.
 global.language = 'en'
