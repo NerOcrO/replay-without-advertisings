@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 
 module.exports = {
   getHome(request, response) {
@@ -11,7 +12,7 @@ module.exports = {
 
       for (const channel of JSON.parse(data).channels) {
         channels.push({
-          url: `${global.language}/channel/${channel.id}`,
+          url: path.join(global.language, 'channel', channel.id),
           label: channel.label
         })
       }
@@ -25,10 +26,10 @@ module.exports = {
   },
 
   getPlugin(request, response, method) {
-    const path = `./plugin/${request.params.idChannel}/index.js`
+    const pluginPath = path.join(__dirname, 'plugin', request.params.idChannel, 'index.js')
 
-    if (fs.existsSync(path)) {
-      const plugin = require(path)
+    if (fs.existsSync(pluginPath)) {
+      const plugin = require(pluginPath)
       plugin[method](request, response)
     }
     else {
@@ -62,7 +63,8 @@ module.exports = {
 
   t(string, words = {}) {
     if (global.language !== 'en') {
-      const language = fs.readFileSync(`./language/${global.language}.json`, 'utf8')
+      const filePath = path.join(__dirname, 'language', `${global.language}.json`)
+      const language = fs.readFileSync(filePath, 'utf8')
 
       string = JSON.parse(language)[string] ? JSON.parse(language)[string] : string
     }

@@ -1,5 +1,6 @@
 const debug = require('debug')('tools')
 const http = require('http')
+const path = require('path')
 const tools = require('../../tools')
 
 module.exports = {
@@ -11,7 +12,7 @@ module.exports = {
     // Channel's ID.
     const idChannel = request.params.idChannel
     // Channel's URL.
-    const urlChannel = `/${global.language}/channel/${idChannel}`
+    const urlChannel = path.join(path.sep, global.language, 'channel', idChannel)
     // URL.
     const url = this.urlShow
 
@@ -35,7 +36,7 @@ module.exports = {
             const idShow = program.onClick.URLPage.match(/(\d+).json/)
 
             variables.push({
-              url: `/${global.language}/channel/${idChannel}/show/${idShow[1]}`,
+              url: path.join(path.sep, global.language, 'channel', idChannel, 'show', idShow[1]),
               label: program.onClick.displayName,
               image: program.URLImageCompact
             })
@@ -65,9 +66,9 @@ module.exports = {
     // Show's ID.
     const idShow = request.params.idShow
     // Channel's URL.
-    const urlChannel = `/${global.language}/channel/${idChannel}`
+    const urlChannel = path.join(path.sep, global.language, 'channel', idChannel)
     // Show's URL.
-    const urlShow = `/${global.language}/channel/${idChannel}/show/${idShow}`
+    const urlShow = path.join(path.sep, global.language, 'channel', idChannel, 'show', idShow)
     // URL.
     const url = this.urlVideos.replace(/{{ID}}/, idShow)
 
@@ -97,7 +98,7 @@ module.exports = {
               const idVideo = value.onClick.URLPage.match(/(\d+).json/)
 
               variables.push({
-                url: `/${global.language}/channel/${idChannel}/show/${idShow}/video/${idVideo[1]}`,
+                url: path.join(path.sep, global.language, 'channel', idChannel, 'show', idShow, 'video', idVideo[1]),
                 label: value.onClick.displayName,
                 image: value.URLImage
               })
@@ -128,9 +129,9 @@ module.exports = {
     // Channel's ID.
     const idChannel = request.params.idChannel
     // Channel's URL.
-    const urlChannel = `/${global.language}/channel/${idChannel}`
+    const urlChannel = path.join(path.sep, global.language, 'channel', idChannel)
     // Show's URL.
-    const urlShow = `/${global.language}/channel/${idChannel}/show/${request.params.idShow}`
+    const urlShow = path.join(path.sep, global.language, 'channel', idChannel, 'show', request.params.idShow)
     // URL.
     const url = this.urlVideo.replace(/{{ID}}/, request.params.idVideo)
 
