@@ -1,5 +1,7 @@
 # Replay without advertisings
 
+![](demo.gif)
+
 ## CONFIGURATION
 
 Just create a channels.json to the root like this:
