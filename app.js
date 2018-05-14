@@ -27,3 +27,6 @@ app.use(utils.redirect)
 
 // Listening to 8080 port.
 app.listen(8080)
+
+// Help.
+console.log('=> http://localhost:8080 !')
