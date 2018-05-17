@@ -15,8 +15,8 @@ const channel = {
   /**
    * Show's page.
    *
-   * @param {object} request
-   * @param {object} response
+   * @param {Object} request
+   * @param {Object} response
    */
   show(request, response) {
     // Base URL.
@@ -78,8 +78,8 @@ const channel = {
   /**
    * Videos page.
    *
-   * @param {object} request
-   * @param {object} response
+   * @param {Object} request
+   * @param {Object} response
    */
   videos(request, response) {
     // Base URL.
@@ -150,8 +150,8 @@ const channel = {
   /**
    * Video's page.
    *
-   * @param {object} request
-   * @param {object} response
+   * @param {Object} request
+   * @param {Object} response
    */
   video(request, response) {
     // Base URL.
