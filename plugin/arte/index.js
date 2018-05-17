@@ -1,6 +1,6 @@
 import Debug from 'debug'
 import { get } from 'http'
-import { join, sep } from 'path'
+import { join } from 'path'
 import { hasError, t } from '../../lib/utils'
 
 const debug = Debug('utils')
@@ -19,6 +19,8 @@ const channel = {
    * @param {object} response
    */
   show(request, response) {
+    // Base URL.
+    const baseUrl = request.baseUrl
     // Channel's ID.
     const idChannel = request.params.idChannel
     // URL.
@@ -59,6 +61,7 @@ const channel = {
             page: 'show',
             title: t('The show'),
             titleChannels: t('The channels'),
+            baseUrl,
             variables
           })
         }
@@ -79,12 +82,14 @@ const channel = {
    * @param {object} response
    */
   videos(request, response) {
+    // Base URL.
+    const baseUrl = request.baseUrl
     // Channel's ID.
     const idChannel = request.params.idChannel
     // Show's ID.
     const idShow = request.params.idShow
     // Show's URL.
-    const urlShow = join(sep, global.language, 'channel', idChannel)
+    const urlShow = join(baseUrl, 'channel', idChannel)
     // URL.
     const url = this.urlVideos.replace(/{{DATE}}/, `${this.date.getFullYear()}${this.date.getMonth()}${this.date.getDay()}`)
 
@@ -128,6 +133,7 @@ const channel = {
             titleChannels: t('The channels'),
             titleShow: t('The show'),
             urlShow,
+            baseUrl,
             variables
           })
         }
@@ -148,12 +154,14 @@ const channel = {
    * @param {object} response
    */
   video(request, response) {
+    // Base URL.
+    const baseUrl = request.baseUrl
     // Channel's ID.
     const idChannel = request.params.idChannel
     // Show's URL.
-    const urlShow = join(sep, global.language, 'channel', idChannel)
+    const urlShow = join(baseUrl, 'channel', idChannel)
     // Videos URL.
-    const urlVideos = join(sep, global.language, 'channel', idChannel, 'show', request.params.idShow)
+    const urlVideos = join(baseUrl, 'channel', idChannel, 'show', request.params.idShow)
     // URL.
     const url = this.urlVideo.replace(/{{ID}}/, request.params.idVideo)
 
@@ -185,6 +193,7 @@ const channel = {
                 download: t('Download the video'),
                 urlShow,
                 urlVideos,
+                baseUrl,
                 urlVideo
               })
             }

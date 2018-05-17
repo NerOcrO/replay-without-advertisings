@@ -1,25 +1,19 @@
 import express from 'express'
-import { getHome, getPlugin } from '../lib/utils'
+import * as utils from '../lib/utils'
 
 const router = express.Router()
 
-router.get('/', (request, response) => {
-  getHome(request, response)
-})
+for (const value of utils.getRoutes()) {
+  router.get(value.route, (request, response) => {
+    utils.getGlobalLangCode(request)
 
-// Show's route.
-router.get('/channel/:idChannel', (request, response) => {
-  getPlugin(request, response, 'show')
-})
-
-// Videos's route.
-router.get('/channel/:idChannel/show/:idShow', (request, response) => {
-  getPlugin(request, response, 'videos')
-})
-
-// Video's route.
-router.get('/channel/:idChannel/show/:idShow/video/:idVideo', (request, response) => {
-  getPlugin(request, response, 'video')
-})
+    if (value.route === '/') {
+      utils.getHome(request, response)
+    }
+    else {
+      utils.getPlugin(request, response, value.view)
+    }
+  })
+}
 
 export default router

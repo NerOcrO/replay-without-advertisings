@@ -1,7 +1,7 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <% if (typeof titleChannels !== 'undefined') { %>
-    <li class="breadcrumb-item"><a href="/"><%- titleChannels %></a></li>
+    <li class="breadcrumb-item"><a href="<%- baseUrl %>/"><%- titleChannels %></a></li>
     <% } %>
     <% if (typeof urlShow !== 'undefined') { %>
     <li class="breadcrumb-item"><a href="<%- urlShow %>"><%- titleShow %></a></li>
