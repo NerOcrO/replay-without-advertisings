@@ -1,0 +1,18 @@
+[
+  {
+    "route": "/",
+    "view": ""
+  },
+  {
+    "route": "/channel/:idChannel",
+    "view": "show"
+  },
+  {
+    "route": "/channel/:idChannel/show/:idShow",
+    "view": "videos"
+  },
+  {
+    "route": "/channel/:idChannel/show/:idShow/video/:idVideo",
+    "view": "video"
+  }
+]

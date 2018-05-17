@@ -2,25 +2,6 @@
 
 ![](demo.gif)
 
-## CONFIGURATION
-
-Just create a channels.json to the root like this:
-
-```json
-{
-  "channels": [
-    {
-      "id": "arte",
-      "label": "Arte"
-    },
-    {
-      "id": "c8",
-      "label": "C8"
-    }
-  ]
-}
-```
-
 ## HOW IT WORKS?
 
 Testing your app
@@ -37,7 +18,7 @@ Then go to your web browser : http://localhost:8080/
 
 ## HOW TO CREATE A PLUGIN?
 
-Just make a directory and associate it a index.js file, that's all!
+Just make a directory and associate it a index.js file, fill ./data/channels.json and that's all!
 Take a look on arte or c8 for more example.
 
 ## LEARNED
