@@ -23,15 +23,17 @@ Just create a channels.json to the root like this:
 
 ## HOW IT WORKS?
 
-> node app.js
+Testing your app
+> npm test
+
+Compiling your app
+> mkdir dist
+> npm run-script build
+
+Ready for the production!
+> npm start
 
 Then go to your web browser : http://localhost:8080/
-
-## DEBUG MODE
-
-> DEBUG=utils node app.js
-or
-> DEBUG=* node app.js
 
 ## HOW TO CREATE A PLUGIN?
 
@@ -50,6 +52,8 @@ Take a look on arte or c8 for more example.
 * ARIA
 * responsive
 * translating handler
+* babel
+* nodemon
 
 ## DOCUMENTATIONS
 
