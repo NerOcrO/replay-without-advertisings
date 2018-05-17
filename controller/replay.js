@@ -8,10 +8,10 @@ for (const value of utils.getRoutes()) {
     utils.getGlobalLangCode(request)
 
     if (value.route === '/') {
-      utils.getHome(request, response)
+      utils.showHomePage(request, response)
     }
     else {
-      utils.getPlugin(request, response, value.view)
+      utils.showPage(request, response, value.view)
     }
   })
 }

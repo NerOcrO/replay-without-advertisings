@@ -8,9 +8,9 @@ const debug = Debug('utils')
 const channel = {
 
   date: new Date(),
-  urlShow: 'http://www.arte.tv/hbbtvv2/services/web/index.php/OPA/v3/programs/{{DATE}}/fr',
-  urlVideos: 'http://www.arte.tv/hbbtvv2/services/web/index.php/OPA/v3/programs/{{DATE}}/fr',
-  urlVideo: 'http://www.arte.tv/hbbtvv2/services/web/index.php/OPA/v3/streams/{{ID}}/fr',
+  showUrl: 'http://www.arte.tv/hbbtvv2/services/web/index.php/OPA/v3/programs/{{DATE}}/fr',
+  videosUrl: 'http://www.arte.tv/hbbtvv2/services/web/index.php/OPA/v3/programs/{{DATE}}/fr',
+  videoUrl: 'http://www.arte.tv/hbbtvv2/services/web/index.php/OPA/v3/streams/{{ID}}/fr',
 
   /**
    * Show's page.
@@ -22,9 +22,9 @@ const channel = {
     // Base URL.
     const baseUrl = request.baseUrl
     // Channel's ID.
-    const idChannel = request.params.idChannel
+    const channelId = request.params.channelId
     // URL.
-    const url = this.urlShow.replace(/{{DATE}}/, `${this.date.getFullYear()}${this.date.getMonth()}${this.date.getDay()}`)
+    const url = this.showUrl.replace(/{{DATE}}/, `${this.date.getFullYear()}${this.date.getMonth()}${this.date.getDay()}`)
 
     // Get the JSON.
     get(url, (res) => {
@@ -50,7 +50,7 @@ const channel = {
               temp.push(program.program.genrePresseCode)
 
               variables.push({
-                url: join(idChannel, 'show', String(program.program.genrePresseCode)),
+                url: join(channelId, 'show', String(program.program.genrePresseCode)),
                 label: program.program.genrePresse,
                 image: program.program.imageUrl
               })
@@ -85,13 +85,13 @@ const channel = {
     // Base URL.
     const baseUrl = request.baseUrl
     // Channel's ID.
-    const idChannel = request.params.idChannel
+    const channelId = request.params.channelId
     // Show's ID.
-    const idShow = request.params.idShow
+    const showId = request.params.showId
     // Show's URL.
-    const urlShow = join(baseUrl, 'channel', idChannel)
+    const showUrl = join(baseUrl, 'channel', channelId)
     // URL.
-    const url = this.urlVideos.replace(/{{DATE}}/, `${this.date.getFullYear()}${this.date.getMonth()}${this.date.getDay()}`)
+    const url = this.videosUrl.replace(/{{DATE}}/, `${this.date.getFullYear()}${this.date.getMonth()}${this.date.getDay()}`)
 
     // Get the JSON.
     get(url, (res) => {
@@ -113,14 +113,14 @@ const channel = {
 
           // JSON parsing.
           for (const program of JSON.parse(rawData).programs) {
-            if (program.program.genrePresseCode !== parseInt(idShow)) {
+            if (program.program.genrePresseCode !== parseInt(showId)) {
               continue
             }
 
             if (program.video) {
               programTitle = program.program.genrePresse
               variables.push({
-                url: join(idShow, 'video', `${program.video.programId}%2F${program.video.kind}`),
+                url: join(showId, 'video', `${program.video.programId}%2F${program.video.kind}`),
                 label: `${program.video.title} <span class="h6">[${program.broadcast.durationRounded / 60} min]</span>`,
                 image: program.video.imageUrl
               })
@@ -132,7 +132,7 @@ const channel = {
             title: programTitle,
             titleChannels: t('The channels'),
             titleShow: t('The show'),
-            urlShow,
+            showUrl,
             baseUrl,
             variables
           })
@@ -157,13 +157,13 @@ const channel = {
     // Base URL.
     const baseUrl = request.baseUrl
     // Channel's ID.
-    const idChannel = request.params.idChannel
+    const channelId = request.params.channelId
     // Show's URL.
-    const urlShow = join(baseUrl, 'channel', idChannel)
+    const showUrl = join(baseUrl, 'channel', channelId)
     // Videos URL.
-    const urlVideos = join(baseUrl, 'channel', idChannel, 'show', request.params.idShow)
+    const videosUrl = join(showUrl, 'show', request.params.showId)
     // URL.
-    const url = this.urlVideo.replace(/{{ID}}/, request.params.idVideo)
+    const url = this.videoUrl.replace(/{{ID}}/, request.params.videoId)
 
     // Get the JSON.
     get(url, (res) => {
@@ -182,7 +182,7 @@ const channel = {
         try {
           for (const video of JSON.parse(rawData).videoStreams) {
             if (video.quality === 'HQ' && (video.audioShortLabel === 'VF' || video.audioShortLabel === 'VOF')) {
-              const urlVideo = video.url
+              const videoUrl = video.url
 
               response.render('layout', {
                 page: 'video',
@@ -191,10 +191,10 @@ const channel = {
                 titleShow: t('The show'),
                 titleVideos: t('The videos'),
                 download: t('Download the video'),
-                urlShow,
-                urlVideos,
+                showUrl,
+                videosUrl,
                 baseUrl,
-                urlVideo
+                videoUrl
               })
             }
           }

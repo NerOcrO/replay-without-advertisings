@@ -4,15 +4,15 @@
     "view": ""
   },
   {
-    "route": "/channel/:idChannel",
+    "route": "/channel/:channelId",
     "view": "show"
   },
   {
-    "route": "/channel/:idChannel/show/:idShow",
+    "route": "/channel/:channelId/show/:showId",
     "view": "videos"
   },
   {
-    "route": "/channel/:idChannel/show/:idShow/video/:idVideo",
+    "route": "/channel/:channelId/show/:showId/video/:videoId",
     "view": "video"
   }
 ]

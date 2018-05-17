@@ -7,9 +7,9 @@ const debug = Debug('utils')
 
 const channel = {
 
-  urlShow: 'http://service.mycanal.fr/page/f7a409073d5e935fd5ee776ae284b644/4578.json',
-  urlVideos: 'http://service.mycanal.fr/page/f7a409073d5e935fd5ee776ae284b644/{{ID}}.json',
-  urlVideo: 'http://service.mycanal.fr/getMediaUrl/f7a409073d5e935fd5ee776ae284b644/{{ID}}.json?pfv={FORMAT}',
+  showUrl: 'http://service.mycanal.fr/page/f7a409073d5e935fd5ee776ae284b644/4578.json',
+  videosUrl: 'http://service.mycanal.fr/page/f7a409073d5e935fd5ee776ae284b644/{{ID}}.json',
+  videoUrl: 'http://service.mycanal.fr/getMediaUrl/f7a409073d5e935fd5ee776ae284b644/{{ID}}.json?pfv={FORMAT}',
 
   /**
    * Show's page.
@@ -21,9 +21,9 @@ const channel = {
     // Base URL.
     const baseUrl = request.baseUrl
     // Channel's ID.
-    const idChannel = request.params.idChannel
+    const channelId = request.params.channelId
     // URL.
-    const url = this.urlShow
+    const url = this.showUrl
 
     // Get the JSON.
     get(url, (res) => {
@@ -44,10 +44,10 @@ const channel = {
 
           // JSON parsing.
           for (const program of JSON.parse(rawData).strates[0].contents) {
-            const idShow = program.onClick.URLPage.match(/(\d+).json/)
+            const showId = program.onClick.URLPage.match(/(\d+).json/)
 
             variables.push({
-              url: join(idChannel, 'show', idShow[1]),
+              url: join(channelId, 'show', showId[1]),
               label: program.onClick.displayName,
               image: program.URLImageCompact
             })
@@ -81,13 +81,13 @@ const channel = {
     // Base URL.
     const baseUrl = request.baseUrl
     // Channel's ID.
-    const idChannel = request.params.idChannel
+    const channelId = request.params.channelId
     // Show's ID.
-    const idShow = request.params.idShow
+    const showId = request.params.showId
     // Show's URL.
-    const urlShow = join(baseUrl, 'channel', idChannel)
+    const showUrl = join(baseUrl, 'channel', channelId)
     // URL.
-    const url = this.urlVideos.replace(/{{ID}}/, idShow)
+    const url = this.videosUrl.replace(/{{ID}}/, showId)
 
     // Get the JSON.
     get(url, (res) => {
@@ -114,10 +114,10 @@ const channel = {
             }
 
             for (const value of strate.contents) {
-              const idVideo = value.onClick.URLPage.match(/(\d+).json/)
+              const videoId = value.onClick.URLPage.match(/(\d+).json/)
 
               variables.push({
-                url: join(idShow, 'video', idVideo[1]),
+                url: join(showId, 'video', videoId[1]),
                 label: value.onClick.displayName,
                 image: value.URLImage
               })
@@ -129,7 +129,7 @@ const channel = {
             title: data.currentPage.displayName,
             titleChannels: t('The channels'),
             titleShow: t('The show'),
-            urlShow,
+            showUrl,
             baseUrl,
             variables
           })
@@ -154,13 +154,13 @@ const channel = {
     // Base URL.
     const baseUrl = request.baseUrl
     // Channel's ID.
-    const idChannel = request.params.idChannel
+    const channelId = request.params.channelId
     // Show's URL.
-    const urlShow = join(baseUrl, 'channel', idChannel)
+    const showUrl = join(baseUrl, 'channel', channelId)
     // Videos URL.
-    const urlVideos = join(baseUrl, 'channel', idChannel, 'show', request.params.idShow)
+    const videosUrl = join(showUrl, 'show', request.params.showId)
     // URL.
-    const url = this.urlVideo.replace(/{{ID}}/, request.params.idVideo)
+    const url = this.videoUrl.replace(/{{ID}}/, request.params.videoId)
 
     // Get the JSON.
     get(url, (res) => {
@@ -178,7 +178,7 @@ const channel = {
       res.on('end', () => {
         try {
           const data = JSON.parse(rawData)
-          const urlVideo = data.detail.informations.videoURLs[0].videoURL
+          const videoUrl = data.detail.informations.videoURLs[0].videoURL
 
           response.render('layout', {
             page: 'video',
@@ -187,10 +187,10 @@ const channel = {
             titleShow: t('The show'),
             titleVideos: t('The videos'),
             download: t('Download the video'),
-            urlShow,
-            urlVideos,
+            showUrl,
+            videosUrl,
             baseUrl,
-            urlVideo
+            videoUrl
           })
         }
         catch (error) {
