@@ -1,24 +1,25 @@
-const fs = require('fs')
-const router = require('express').Router()
-const utils = require('../lib/utils')
+import express from 'express'
+import { getHome, getPlugin } from '../lib/utils'
+
+const router = express.Router()
 
 router.get('/', (request, response) => {
-  utils.getHome(request, response)
+  getHome(request, response)
 })
 
 // Show's route.
 router.get('/channel/:idChannel', (request, response) => {
-  utils.getPlugin(request, response, 'show')
+  getPlugin(request, response, 'show')
 })
 
 // Videos's route.
 router.get('/channel/:idChannel/show/:idShow', (request, response) => {
-  utils.getPlugin(request, response, 'videos')
+  getPlugin(request, response, 'videos')
 })
 
 // Video's route.
 router.get('/channel/:idChannel/show/:idShow/video/:idVideo', (request, response) => {
-  utils.getPlugin(request, response, 'video')
+  getPlugin(request, response, 'video')
 })
 
-module.exports = router
+export default router

@@ -1,9 +1,11 @@
-const debug = require('debug')('utils')
-const http = require('http')
-const path = require('path')
-const utils = require('../../lib/utils')
+import Debug from 'debug'
+import { get } from 'http'
+import { join, sep } from 'path'
+import { hasError, t } from '../../lib/utils'
 
-const channel = module.exports = {
+const debug = Debug('utils')
+
+const channel = {
 
   urlShow: 'http://service.mycanal.fr/page/f7a409073d5e935fd5ee776ae284b644/4578.json',
   urlVideos: 'http://service.mycanal.fr/page/f7a409073d5e935fd5ee776ae284b644/{{ID}}.json',
@@ -22,10 +24,10 @@ const channel = module.exports = {
     const url = this.urlShow
 
     // Get the JSON.
-    http.get(url, (res) => {
-      debug(utils.t('Show: @@url@@', [url]))
+    get(url, (res) => {
+      debug(t('Show: @@url@@', [url]))
 
-      if (!utils.hasError(response, res)) {
+      if (!hasError(response, res)) {
         return
       }
 
@@ -43,7 +45,7 @@ const channel = module.exports = {
             const idShow = program.onClick.URLPage.match(/(\d+).json/)
 
             variables.push({
-              url: path.join(idChannel, 'show', idShow[1]),
+              url: join(idChannel, 'show', idShow[1]),
               label: program.onClick.displayName,
               image: program.URLImageCompact
             })
@@ -51,18 +53,18 @@ const channel = module.exports = {
 
           response.render('layout', {
             page: 'show',
-            title: utils.t('The show'),
-            titleChannels: utils.t('The channels'),
+            title: t('The show'),
+            titleChannels: t('The channels'),
             variables
           })
         }
         catch (error) {
           console.error(error.message)
-          response.status(500).send(utils.t('Sorry, there is something wrong!'))
+          response.status(500).send(t('Sorry, there is something wrong!'))
         }
       })
     }).on('error', (error) => {
-      console.error(utils.t('Got error: @@message@@', [error.message]))
+      console.error(t('Got error: @@message@@', [error.message]))
     })
   },
 
@@ -78,15 +80,15 @@ const channel = module.exports = {
     // Show's ID.
     const idShow = request.params.idShow
     // Show's URL.
-    const urlShow = path.join(path.sep, global.language, 'channel', idChannel)
+    const urlShow = join(sep, global.language, 'channel', idChannel)
     // URL.
     const url = this.urlVideos.replace(/{{ID}}/, idShow)
 
     // Get the JSON.
-    http.get(url, (res) => {
-      debug(utils.t('Videos: @@url@@', [url]))
+    get(url, (res) => {
+      debug(t('Videos: @@url@@', [url]))
 
-      if (!utils.hasError(response, res)) {
+      if (!hasError(response, res)) {
         return
       }
 
@@ -110,7 +112,7 @@ const channel = module.exports = {
               const idVideo = value.onClick.URLPage.match(/(\d+).json/)
 
               variables.push({
-                url: path.join(idShow, 'video', idVideo[1]),
+                url: join(idShow, 'video', idVideo[1]),
                 label: value.onClick.displayName,
                 image: value.URLImage
               })
@@ -120,19 +122,19 @@ const channel = module.exports = {
           response.render('layout', {
             page: 'videos',
             title: data.currentPage.displayName,
-            titleChannels: utils.t('The channels'),
-            titleShow: utils.t('The show'),
+            titleChannels: t('The channels'),
+            titleShow: t('The show'),
             urlShow,
             variables
           })
         }
         catch (error) {
           console.error(error.message)
-          response.status(500).send(utils.t('Sorry, there is something wrong!'))
+          response.status(500).send(t('Sorry, there is something wrong!'))
         }
       })
     }).on('error', (error) => {
-      console.error(utils.t('Got error: @@message@@', [error.message]))
+      console.error(t('Got error: @@message@@', [error.message]))
     })
   },
 
@@ -146,17 +148,17 @@ const channel = module.exports = {
     // Channel's ID.
     const idChannel = request.params.idChannel
     // Show's URL.
-    const urlShow = path.join(path.sep, global.language, 'channel', idChannel)
+    const urlShow = join(sep, global.language, 'channel', idChannel)
     // Videos URL.
-    const urlVideos = path.join(path.sep, global.language, 'channel', idChannel, 'show', request.params.idShow)
+    const urlVideos = join(sep, global.language, 'channel', idChannel, 'show', request.params.idShow)
     // URL.
     const url = this.urlVideo.replace(/{{ID}}/, request.params.idVideo)
 
     // Get the JSON.
-    http.get(url, (res) => {
-      debug(utils.t('Video: @@url@@', [url]))
+    get(url, (res) => {
+      debug(t('Video: @@url@@', [url]))
 
-      if (!utils.hasError(response, res)) {
+      if (!hasError(response, res)) {
         return
       }
 
@@ -173,10 +175,10 @@ const channel = module.exports = {
           response.render('layout', {
             page: 'video',
             title: data.detail.informations.title,
-            titleChannels: utils.t('The channels'),
-            titleShow: utils.t('The show'),
-            titleVideos: utils.t('The videos'),
-            download: utils.t('Download the video'),
+            titleChannels: t('The channels'),
+            titleShow: t('The show'),
+            titleVideos: t('The videos'),
+            download: t('Download the video'),
             urlShow,
             urlVideos,
             urlVideo
@@ -184,12 +186,14 @@ const channel = module.exports = {
         }
         catch (error) {
           console.error(error.message)
-          response.status(500).send(utils.t('Sorry, there is something wrong!'))
+          response.status(500).send(t('Sorry, there is something wrong!'))
         }
       })
     }).on('error', (error) => {
-      console.error(utils.t('Got error: @@message@@', [error.message]))
+      console.error(t('Got error: @@message@@', [error.message]))
     })
   }
 
 }
+
+export { channel }
