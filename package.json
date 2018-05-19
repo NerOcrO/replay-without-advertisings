@@ -17,6 +17,9 @@
   ],
   "author": "NerOcrO",
   "license": "ISC",
+  "engines" : {
+    "node" : ">=8"
+  },
   "dependencies": {
     "debug": "^3.1.0",
     "ejs": "^2.5.9",
