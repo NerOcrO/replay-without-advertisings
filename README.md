@@ -1,7 +1,5 @@
 # Replay without advertisings
 
-![demo](demo.gif)
-
 ## HOW IT WORKS
 
 Testing your app
