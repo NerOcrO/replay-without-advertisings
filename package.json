@@ -5,8 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "DEBUG=utils nodemon lib/app.js --exec babel-node",
-    "build": "babel lib/app.js --out-file dist/app.js",
-    "start": "node dist/app.js"
+    "start": "node bin/prod"
   },
   "keywords": [
     "nodejs",
@@ -26,6 +25,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.26.0",
     "nodemon": "^1.17.4"
   }
 }
