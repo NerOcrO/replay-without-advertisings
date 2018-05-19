@@ -15,13 +15,15 @@ const channel = {
    * Show's page.
    *
    * @param {Object} request
+   *   Request object.
    * @param {Object} response
+   *   Response object.
    */
   show(request, response) {
     // Base URL.
-    const baseUrl = request.baseUrl
+    const { baseUrl } = request
     // Channel's ID.
-    const channelId = request.params.channelId
+    const { channelId } = request.params
     // URL.
     const url = this.showUrl
 
@@ -49,7 +51,7 @@ const channel = {
             variables.push({
               url: join(channelId, 'show', showId[1]),
               label: program.onClick.displayName,
-              image: program.URLImageCompact
+              image: program.URLImageCompact,
             })
           }
 
@@ -58,7 +60,7 @@ const channel = {
             title: t('The show'),
             titleChannels: t('The channels'),
             baseUrl,
-            variables
+            variables,
           })
         }
         catch (error) {
@@ -75,15 +77,17 @@ const channel = {
    * Videos page.
    *
    * @param {Object} request
+   *   Request object.
    * @param {Object} response
+   *   Response object.
    */
   videos(request, response) {
     // Base URL.
-    const baseUrl = request.baseUrl
+    const { baseUrl } = request
     // Channel's ID.
-    const channelId = request.params.channelId
+    const { channelId } = request.params
     // Show's ID.
-    const showId = request.params.showId
+    const { showId } = request.params
     // Show's URL.
     const showUrl = join(baseUrl, 'channel', channelId)
     // URL.
@@ -119,7 +123,7 @@ const channel = {
               variables.push({
                 url: join(showId, 'video', videoId[1]),
                 label: value.onClick.displayName,
-                image: value.URLImage
+                image: value.URLImage,
               })
             }
           }
@@ -131,7 +135,7 @@ const channel = {
             titleShow: t('The show'),
             showUrl,
             baseUrl,
-            variables
+            variables,
           })
         }
         catch (error) {
@@ -148,13 +152,15 @@ const channel = {
    * Video's page.
    *
    * @param {Object} request
+   *   Request object.
    * @param {Object} response
+   *   Response object.
    */
   video(request, response) {
     // Base URL.
-    const baseUrl = request.baseUrl
+    const { baseUrl } = request
     // Channel's ID.
-    const channelId = request.params.channelId
+    const { channelId } = request.params
     // Show's URL.
     const showUrl = join(baseUrl, 'channel', channelId)
     // Videos URL.
@@ -190,7 +196,7 @@ const channel = {
             showUrl,
             videosUrl,
             baseUrl,
-            videoUrl
+            videoUrl,
           })
         }
         catch (error) {
@@ -201,8 +207,8 @@ const channel = {
     }).on('error', (error) => {
       console.error(t('Got error: @@message@@', [error.message]))
     })
-  }
+  },
 
 }
 
-export { channel }
+export default channel

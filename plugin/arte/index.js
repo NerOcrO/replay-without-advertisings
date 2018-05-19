@@ -16,13 +16,15 @@ const channel = {
    * Show's page.
    *
    * @param {Object} request
+   *   Request object.
    * @param {Object} response
+   *   Response object.
    */
   show(request, response) {
     // Base URL.
-    const baseUrl = request.baseUrl
+    const { baseUrl } = request
     // Channel's ID.
-    const channelId = request.params.channelId
+    const { channelId } = request.params
     // URL.
     const url = this.showUrl.replace(/{{DATE}}/, `${this.date.getFullYear()}${this.date.getMonth()}${this.date.getDay()}`)
 
@@ -46,13 +48,13 @@ const channel = {
 
           // JSON parsing.
           for (const program of JSON.parse(rawData).programs) {
-            if (temp.indexOf(program.program.genrePresseCode) == -1) {
+            if (temp.indexOf(program.program.genrePresseCode) === -1) {
               temp.push(program.program.genrePresseCode)
 
               variables.push({
                 url: join(channelId, 'show', String(program.program.genrePresseCode)),
                 label: program.program.genrePresse,
-                image: program.program.imageUrl
+                image: program.program.imageUrl,
               })
             }
           }
@@ -62,7 +64,7 @@ const channel = {
             title: t('The show'),
             titleChannels: t('The channels'),
             baseUrl,
-            variables
+            variables,
           })
         }
         catch (error) {
@@ -79,15 +81,17 @@ const channel = {
    * Videos page.
    *
    * @param {Object} request
+   *   Request object.
    * @param {Object} response
+   *   Response object.
    */
   videos(request, response) {
     // Base URL.
-    const baseUrl = request.baseUrl
+    const { baseUrl } = request
     // Channel's ID.
-    const channelId = request.params.channelId
+    const { channelId } = request.params
     // Show's ID.
-    const showId = request.params.showId
+    const { showId } = request.params
     // Show's URL.
     const showUrl = join(baseUrl, 'channel', channelId)
     // URL.
@@ -113,7 +117,7 @@ const channel = {
 
           // JSON parsing.
           for (const program of JSON.parse(rawData).programs) {
-            if (program.program.genrePresseCode !== parseInt(showId)) {
+            if (program.program.genrePresseCode !== parseInt(showId, 2)) {
               continue
             }
 
@@ -122,7 +126,7 @@ const channel = {
               variables.push({
                 url: join(showId, 'video', `${program.video.programId}%2F${program.video.kind}`),
                 label: `${program.video.title} <span class="h6">[${program.broadcast.durationRounded / 60} min]</span>`,
-                image: program.video.imageUrl
+                image: program.video.imageUrl,
               })
             }
           }
@@ -134,7 +138,7 @@ const channel = {
             titleShow: t('The show'),
             showUrl,
             baseUrl,
-            variables
+            variables,
           })
         }
         catch (error) {
@@ -151,13 +155,15 @@ const channel = {
    * Video's page.
    *
    * @param {Object} request
+   *   Request object.
    * @param {Object} response
+   *   Response object.
    */
   video(request, response) {
     // Base URL.
-    const baseUrl = request.baseUrl
+    const { baseUrl } = request
     // Channel's ID.
-    const channelId = request.params.channelId
+    const { channelId } = request.params
     // Show's URL.
     const showUrl = join(baseUrl, 'channel', channelId)
     // Videos URL.
@@ -194,7 +200,7 @@ const channel = {
                 showUrl,
                 videosUrl,
                 baseUrl,
-                videoUrl
+                videoUrl,
               })
             }
           }
@@ -207,8 +213,8 @@ const channel = {
     }).on('error', (error) => {
       console.error(t('Got error: @@message@@', [error.message]))
     })
-  }
+  },
 
 }
 
-export { channel }
+export default channel
