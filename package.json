@@ -4,7 +4,7 @@
   "description": "Replay without advertisings",
   "main": "app.js",
   "scripts": {
-    "test": "DEBUG=utils nodemon lib/app.js --exec babel-node",
+    "dev": "DEBUG=utils nodemon lib/app.js --exec babel-node",
     "start": "node bin/prod"
   },
   "keywords": [

@@ -2,12 +2,8 @@
 
 ## HOW IT WORKS
 
-Testing your app
-> npm test
-
-Compiling your app
-> mkdir dist
-> npm run-script build
+Testing your app on local
+> npm dev
 
 Ready for the production!
 > npm start
@@ -24,6 +20,7 @@ Take a look on arte or c8 for more example.
 * express
 * http
 * filesystem
+* debug
 * date
 * error
 * templating
