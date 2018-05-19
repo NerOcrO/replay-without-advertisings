@@ -3,7 +3,7 @@ import * as utils from '../lib/utils'
 
 const router = express.Router()
 
-for (const value of utils.getRoutes()) {
+utils.getRoutes().forEach((value) => {
   router.get(value.route, (request, response) => {
     utils.setGlobalLangCode(request)
 
@@ -14,6 +14,6 @@ for (const value of utils.getRoutes()) {
       utils.showPage(request, response, value.view)
     }
   })
-}
+})
 
 export default router
