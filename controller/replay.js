@@ -5,7 +5,7 @@ const router = express.Router()
 
 for (const value of utils.getRoutes()) {
   router.get(value.route, (request, response) => {
-    utils.getGlobalLangCode(request)
+    utils.setGlobalLangCode(request)
 
     if (value.route === '/') {
       utils.showHomePage(request, response)
