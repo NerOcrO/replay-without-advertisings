@@ -6,7 +6,7 @@
     "node": true
   },
   "rules": {
-    "semi": 0,
+    "semi": ["error", "never"],
     "strict": 0,
     "no-console": 0,
     "global-require": 0,

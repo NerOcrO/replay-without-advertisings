@@ -42,18 +42,13 @@ const channel = {
       })
       res.on('end', () => {
         try {
-          const variables = []
-
-          // JSON parsing.
-          for (const program of JSON.parse(rawData).strates[0].contents) {
-            const showId = program.onClick.URLPage.match(/(\d+).json/)
-
-            variables.push({
-              url: join(channelId, 'show', showId[1]),
+          const variables = JSON.parse(rawData).strates[0].contents.map((program) => {
+            return {
+              url: join(channelId, 'show', program.onClick.URLPage.match(/(\d+).json/)[1]),
               label: program.onClick.displayName,
               image: program.URLImageCompact,
-            })
-          }
+            }
+          })
 
           response.render('layout', {
             page: 'show',
@@ -108,25 +103,17 @@ const channel = {
       })
       res.on('end', () => {
         try {
-          const variables = []
           const data = JSON.parse(rawData)
-
-          // JSON parsing.
-          for (const strate of data.strates) {
-            if (strate.type !== 'contentRow') {
-              continue
-            }
-
-            for (const value of strate.contents) {
-              const videoId = value.onClick.URLPage.match(/(\d+).json/)
-
-              variables.push({
-                url: join(showId, 'video', videoId[1]),
-                label: value.onClick.displayName,
+          const variables = data.strates
+            .filter(strate => strate.type === 'contentRow')
+            .reduce((accumulator, program) => accumulator.concat(program.contents), [])
+            .map((value) => {
+              return {
+                url: join(showId, 'video', value.onClick.URLPage.match(/(\d+).json/)[1]),
+                label: `${value.title}<br>${value.subtitle}`,
                 image: value.URLImage,
-              })
-            }
-          }
+              }
+            })
 
           response.render('layout', {
             page: 'videos',
@@ -188,7 +175,7 @@ const channel = {
 
           response.render('layout', {
             page: 'video',
-            title: data.detail.informations.title,
+            title: `${data.detail.informations.title} | ${data.detail.informations.subtitle}`,
             titleChannels: t('The channels'),
             titleShow: t('The show'),
             titleVideos: t('The videos'),

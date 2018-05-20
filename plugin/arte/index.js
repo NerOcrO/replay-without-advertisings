@@ -43,21 +43,16 @@ const channel = {
       })
       res.on('end', () => {
         try {
-          const variables = []
-          const temp = []
-
-          // JSON parsing.
-          for (const program of JSON.parse(rawData).programs) {
-            if (temp.indexOf(program.program.genrePresseCode) === -1) {
-              temp.push(program.program.genrePresseCode)
-
-              variables.push({
+          const variables = JSON.parse(rawData).programs
+            .filter((program, index, programs) => programs.slice(index + 1)
+              .every(p => p.program.genrePresseCode !== program.program.genrePresseCode))
+            .map((program) => {
+              return {
                 url: join(channelId, 'show', String(program.program.genrePresseCode)),
                 label: program.program.genrePresse,
                 image: program.program.imageUrl,
-              })
-            }
-          }
+              }
+            })
 
           response.render('layout', {
             page: 'show',
@@ -112,24 +107,20 @@ const channel = {
       })
       res.on('end', () => {
         try {
-          const variables = []
           let programTitle = ''
+          const variables = JSON.parse(rawData).programs
+            .filter(program => program.program.genrePresseCode === parseInt(showId, 10))
+            .map((program) => {
+              if (program.video) {
+                programTitle = program.program.genrePresse
 
-          // JSON parsing.
-          for (const program of JSON.parse(rawData).programs) {
-            if (program.program.genrePresseCode !== parseInt(showId, 2)) {
-              continue
-            }
-
-            if (program.video) {
-              programTitle = program.program.genrePresse
-              variables.push({
-                url: join(showId, 'video', `${program.video.programId}%2F${program.video.kind}`),
-                label: `${program.video.title} <span class="h6">[${program.broadcast.durationRounded / 60} min]</span>`,
-                image: program.video.imageUrl,
-              })
-            }
-          }
+                return {
+                  url: join(showId, 'video', `${program.video.programId}%2F${program.video.kind}`),
+                  label: `${program.video.title} <span class="h6">[${Math.floor((parseInt(program.video.durationSeconds, 10) / 60))} min]</span>`,
+                  image: program.video.imageUrl,
+                }
+              }
+            })
 
           response.render('layout', {
             page: 'videos',
@@ -186,10 +177,8 @@ const channel = {
       })
       res.on('end', () => {
         try {
-          for (const video of JSON.parse(rawData).videoStreams) {
+          JSON.parse(rawData).videoStreams.forEach((video) => {
             if (video.quality === 'HQ' && (video.audioShortLabel === 'VF' || video.audioShortLabel === 'VOF')) {
-              const videoUrl = video.url
-
               response.render('layout', {
                 page: 'video',
                 title: t('The video'),
@@ -200,10 +189,10 @@ const channel = {
                 showUrl,
                 videosUrl,
                 baseUrl,
-                videoUrl,
+                videoUrl: video.url,
               })
             }
-          }
+          })
         }
         catch (error) {
           console.error(error.message)

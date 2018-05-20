@@ -3,7 +3,7 @@
 ## HOW IT WORKS
 
 Testing your app on local
-> npm dev
+> npm run dev
 
 Ready for the production!
 > npm start
