@@ -1,7 +1,8 @@
 import Debug from 'debug'
 import { get } from 'http'
+// import i18n from 'i18n'
 import { join } from 'path'
-import { hasError, t } from '../../lib/utils'
+import { hasError } from '../../lib/utils'
 
 const debug = Debug('utils')
 
@@ -30,7 +31,7 @@ const channel = {
 
     // Get the JSON.
     get(url, (res) => {
-      debug(t('Show: @@url@@', [url]))
+      debug(response.t('Show: %s', url))
 
       if (!hasError(response, res)) {
         return
@@ -56,19 +57,19 @@ const channel = {
 
           response.render('layout', {
             page: 'show',
-            title: t('The show'),
-            titleChannels: t('The channels'),
+            title: response.t('The show'),
+            titleChannels: response.t('The channels'),
             baseUrl,
             variables,
           })
         }
         catch (error) {
           console.error(error.message)
-          response.status(500).send(t('Sorry, there is something wrong!'))
+          response.status(500).send(response.t('Sorry, there is something wrong!'))
         }
       })
     }).on('error', (error) => {
-      console.error(t('Got error: @@message@@', [error.message]))
+      console.error(response.t('Got error: %s', error.message))
     })
   },
 
@@ -94,7 +95,7 @@ const channel = {
 
     // Get the JSON.
     get(url, (res) => {
-      debug(t('Videos: @@url@@', [url]))
+      debug(response.t('Videos: %s', url))
 
       if (!hasError(response, res)) {
         return
@@ -125,8 +126,8 @@ const channel = {
           response.render('layout', {
             page: 'videos',
             title: programTitle,
-            titleChannels: t('The channels'),
-            titleShow: t('The show'),
+            titleChannels: response.t('The channels'),
+            titleShow: response.t('The show'),
             showUrl,
             baseUrl,
             variables,
@@ -134,11 +135,11 @@ const channel = {
         }
         catch (error) {
           console.error(error.message)
-          response.status(500).send(t('Sorry, there is something wrong!'))
+          response.status(500).send(response.t('Sorry, there is something wrong!'))
         }
       })
     }).on('error', (error) => {
-      console.error(t('Got error: @@message@@', [error.message]))
+      console.error(response.t('Got error: %s', error.message))
     })
   },
 
@@ -164,7 +165,7 @@ const channel = {
 
     // Get the JSON.
     get(url, (res) => {
-      debug(t('Video: @@url@@', [url]))
+      debug(response.t('Video: %s', url))
 
       if (!hasError(response, res)) {
         return
@@ -181,11 +182,11 @@ const channel = {
             if (video.quality === 'HQ' && (video.audioShortLabel === 'VF' || video.audioShortLabel === 'VOF')) {
               response.render('layout', {
                 page: 'video',
-                title: t('The video'),
-                titleChannels: t('The channels'),
-                titleShow: t('The show'),
-                titleVideos: t('The videos'),
-                download: t('Download the video'),
+                title: response.t('The video'),
+                titleChannels: response.t('The channels'),
+                titleShow: response.t('The show'),
+                titleVideos: response.t('The videos'),
+                download: response.t('Download the video'),
                 showUrl,
                 videosUrl,
                 baseUrl,
@@ -196,11 +197,11 @@ const channel = {
         }
         catch (error) {
           console.error(error.message)
-          response.status(500).send(t('Sorry, there is something wrong!'))
+          response.status(500).send(response.t('Sorry, there is something wrong!'))
         }
       })
     }).on('error', (error) => {
-      console.error(t('Got error: @@message@@', [error.message]))
+      console.error(response.t('Got error: %s', error.message))
     })
   },
 

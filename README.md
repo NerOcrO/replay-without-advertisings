@@ -20,6 +20,7 @@ Take a look on arte or c8 for more example.
 * express
 * http
 * filesystem
+* i18n
 * debug
 * date
 * error
@@ -27,7 +28,6 @@ Take a look on arte or c8 for more example.
 * bootstrap
 * ARIA
 * responsive
-* translating handler
 * babel
 * nodemon
 

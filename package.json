@@ -8,22 +8,24 @@
     "start": "node bin/prod"
   },
   "keywords": [
-    "nodejs",
-    "express",
-    "http",
-    "path",
     "debug",
-    "fs"
+    "express",
+    "fs",
+    "http",
+    "i18n",
+    "nodejs",
+    "path"
   ],
   "author": "NerOcrO",
   "license": "ISC",
-  "engines" : {
-    "node" : ">=8"
+  "engines": {
+    "node": ">=8"
   },
   "dependencies": {
     "debug": "^3.1.0",
     "ejs": "^2.5.9",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "i18n": "^0.8.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
