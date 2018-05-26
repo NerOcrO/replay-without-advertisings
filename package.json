@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "DEBUG=utils nodemon index.js --exec babel-node",
-    "start": "node -r babel-register index.js"
+    "start": "node bin/prod"
   },
   "keywords": [
     "debug",
