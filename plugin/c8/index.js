@@ -38,13 +38,13 @@ const channel = {
       res.on('end', () => {
         try {
           response.locals.baseUrl = request.baseUrl
-          response.locals.variables = JSON.parse(rawData).strates[0].contents.map((program) => {
-            return {
+          response.locals.variables = JSON.parse(rawData).strates[0].contents.map(program => (
+            {
               url: join(request.params.channelId, 'show', program.onClick.URLPage.match(/(\d+).json/)[1]),
               label: program.onClick.displayName,
               image: program.URLImageCompact,
             }
-          })
+          ))
 
           response.render('layout', {
             page: 'show',
@@ -96,13 +96,13 @@ const channel = {
           response.locals.variables = data.strates
             .filter(strate => strate.type === 'contentRow')
             .reduce((accumulator, program) => accumulator.concat(program.contents), [])
-            .map((value) => {
-              return {
+            .map(value => (
+              {
                 url: join(showId, 'video', value.onClick.URLPage.match(/(\d+).json/)[1]),
                 label: `${value.title}<br>${value.subtitle}`,
                 image: value.URLImage,
               }
-            })
+            ))
 
           response.render('layout', {
             page: 'videos',

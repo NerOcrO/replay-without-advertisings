@@ -42,13 +42,13 @@ const channel = {
           response.locals.variables = JSON.parse(rawData).programs
             .filter((program, index, programs) => programs.slice(index + 1)
               .every(p => p.program.genrePresseCode !== program.program.genrePresseCode))
-            .map((program) => {
-              return {
+            .map(program => (
+              {
                 url: join(request.params.channelId, 'show', String(program.program.genrePresseCode)),
                 label: program.program.genrePresse,
                 image: program.program.imageUrl,
               }
-            })
+            ))
 
           response.render('layout', {
             page: 'show',
@@ -94,14 +94,12 @@ const channel = {
       })
       res.on('end', () => {
         try {
-          let programTitle = ''
-
           response.locals.showUrl = join(baseUrl, 'channel', request.params.channelId)
           response.locals.variables = JSON.parse(rawData).programs
             .filter(program => program.program.genrePresseCode === parseInt(showId, 10))
             .map((program) => {
               if (program.video) {
-                programTitle = program.program.genrePresse
+                response.locals.title = program.program.genrePresse
 
                 return {
                   url: join(showId, 'video', `${program.video.programId}%2F${program.video.kind}`),
@@ -113,7 +111,6 @@ const channel = {
 
           response.render('layout', {
             page: 'videos',
-            title: programTitle,
             titleChannels: response.t('The channels'),
             titleShow: response.t('The show'),
             baseUrl,
