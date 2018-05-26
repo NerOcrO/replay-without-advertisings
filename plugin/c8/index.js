@@ -20,11 +20,6 @@ const channel = {
    *   Response object.
    */
   show(request, response) {
-    // Base URL.
-    const { baseUrl } = request
-    // Channel's ID.
-    const { channelId } = request.params
-    // URL.
     const url = this.showUrl
 
     // Get the JSON.
@@ -42,9 +37,10 @@ const channel = {
       })
       res.on('end', () => {
         try {
-          const variables = JSON.parse(rawData).strates[0].contents.map((program) => {
+          response.locals.baseUrl = request.baseUrl
+          response.locals.variables = JSON.parse(rawData).strates[0].contents.map((program) => {
             return {
-              url: join(channelId, 'show', program.onClick.URLPage.match(/(\d+).json/)[1]),
+              url: join(request.params.channelId, 'show', program.onClick.URLPage.match(/(\d+).json/)[1]),
               label: program.onClick.displayName,
               image: program.URLImageCompact,
             }
@@ -54,8 +50,6 @@ const channel = {
             page: 'show',
             title: response.t('The show'),
             titleChannels: response.t('The channels'),
-            baseUrl,
-            variables,
           })
         }
         catch (error) {
@@ -77,15 +71,8 @@ const channel = {
    *   Response object.
    */
   videos(request, response) {
-    // Base URL.
     const { baseUrl } = request
-    // Channel's ID.
-    const { channelId } = request.params
-    // Show's ID.
     const { showId } = request.params
-    // Show's URL.
-    const showUrl = join(baseUrl, 'channel', channelId)
-    // URL.
     const url = this.videosUrl.replace(/{{ID}}/, showId)
 
     // Get the JSON.
@@ -104,7 +91,9 @@ const channel = {
       res.on('end', () => {
         try {
           const data = JSON.parse(rawData)
-          const variables = data.strates
+
+          response.locals.showUrl = join(baseUrl, 'channel', request.params.channelId)
+          response.locals.variables = data.strates
             .filter(strate => strate.type === 'contentRow')
             .reduce((accumulator, program) => accumulator.concat(program.contents), [])
             .map((value) => {
@@ -120,9 +109,7 @@ const channel = {
             title: data.currentPage.displayName,
             titleChannels: response.t('The channels'),
             titleShow: response.t('The show'),
-            showUrl,
             baseUrl,
-            variables,
           })
         }
         catch (error) {
@@ -144,15 +131,8 @@ const channel = {
    *   Response object.
    */
   video(request, response) {
-    // Base URL.
     const { baseUrl } = request
-    // Channel's ID.
-    const { channelId } = request.params
-    // Show's URL.
-    const showUrl = join(baseUrl, 'channel', channelId)
-    // Videos URL.
-    const videosUrl = join(showUrl, 'show', request.params.showId)
-    // URL.
+    const showUrl = join(baseUrl, 'channel', request.params.channelId)
     const url = this.videoUrl.replace(/{{ID}}/, request.params.videoId)
 
     // Get the JSON.
@@ -171,7 +151,9 @@ const channel = {
       res.on('end', () => {
         try {
           const data = JSON.parse(rawData)
-          const videoUrl = data.detail.informations.videoURLs[0].videoURL
+
+          response.locals.videosUrl = join(showUrl, 'show', request.params.showId)
+          response.locals.videoUrl = data.detail.informations.videoURLs[0].videoURL
 
           response.render('layout', {
             page: 'video',
@@ -181,9 +163,7 @@ const channel = {
             titleVideos: response.t('The videos'),
             download: response.t('Download the video'),
             showUrl,
-            videosUrl,
             baseUrl,
-            videoUrl,
           })
         }
         catch (error) {

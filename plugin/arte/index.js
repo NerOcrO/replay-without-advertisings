@@ -1,6 +1,5 @@
 import Debug from 'debug'
 import { get } from 'http'
-// import i18n from 'i18n'
 import { join } from 'path'
 import { hasError } from '../../lib/utils'
 
@@ -22,11 +21,6 @@ const channel = {
    *   Response object.
    */
   show(request, response) {
-    // Base URL.
-    const { baseUrl } = request
-    // Channel's ID.
-    const { channelId } = request.params
-    // URL.
     const url = this.showUrl.replace(/{{DATE}}/, `${this.date.getFullYear()}${this.date.getMonth()}${this.date.getDay()}`)
 
     // Get the JSON.
@@ -44,12 +38,13 @@ const channel = {
       })
       res.on('end', () => {
         try {
-          const variables = JSON.parse(rawData).programs
+          response.locals.baseUrl = request.baseUrl
+          response.locals.variables = JSON.parse(rawData).programs
             .filter((program, index, programs) => programs.slice(index + 1)
               .every(p => p.program.genrePresseCode !== program.program.genrePresseCode))
             .map((program) => {
               return {
-                url: join(channelId, 'show', String(program.program.genrePresseCode)),
+                url: join(request.params.channelId, 'show', String(program.program.genrePresseCode)),
                 label: program.program.genrePresse,
                 image: program.program.imageUrl,
               }
@@ -59,8 +54,6 @@ const channel = {
             page: 'show',
             title: response.t('The show'),
             titleChannels: response.t('The channels'),
-            baseUrl,
-            variables,
           })
         }
         catch (error) {
@@ -82,15 +75,8 @@ const channel = {
    *   Response object.
    */
   videos(request, response) {
-    // Base URL.
     const { baseUrl } = request
-    // Channel's ID.
-    const { channelId } = request.params
-    // Show's ID.
     const { showId } = request.params
-    // Show's URL.
-    const showUrl = join(baseUrl, 'channel', channelId)
-    // URL.
     const url = this.videosUrl.replace(/{{DATE}}/, `${this.date.getFullYear()}${this.date.getMonth()}${this.date.getDay()}`)
 
     // Get the JSON.
@@ -109,7 +95,9 @@ const channel = {
       res.on('end', () => {
         try {
           let programTitle = ''
-          const variables = JSON.parse(rawData).programs
+
+          response.locals.showUrl = join(baseUrl, 'channel', request.params.channelId)
+          response.locals.variables = JSON.parse(rawData).programs
             .filter(program => program.program.genrePresseCode === parseInt(showId, 10))
             .map((program) => {
               if (program.video) {
@@ -128,9 +116,7 @@ const channel = {
             title: programTitle,
             titleChannels: response.t('The channels'),
             titleShow: response.t('The show'),
-            showUrl,
             baseUrl,
-            variables,
           })
         }
         catch (error) {
@@ -152,15 +138,7 @@ const channel = {
    *   Response object.
    */
   video(request, response) {
-    // Base URL.
     const { baseUrl } = request
-    // Channel's ID.
-    const { channelId } = request.params
-    // Show's URL.
-    const showUrl = join(baseUrl, 'channel', channelId)
-    // Videos URL.
-    const videosUrl = join(showUrl, 'show', request.params.showId)
-    // URL.
     const url = this.videoUrl.replace(/{{ID}}/, request.params.videoId)
 
     // Get the JSON.
@@ -180,6 +158,9 @@ const channel = {
         try {
           JSON.parse(rawData).videoStreams.forEach((video) => {
             if (video.quality === 'HQ' && (video.audioShortLabel === 'VF' || video.audioShortLabel === 'VOF')) {
+              response.locals.showUrl = join(baseUrl, 'channel', request.params.channelId)
+              response.locals.videosUrl = join(response.locals.showUrl, 'show', request.params.showId)
+
               response.render('layout', {
                 page: 'video',
                 title: response.t('The video'),
@@ -187,8 +168,6 @@ const channel = {
                 titleShow: response.t('The show'),
                 titleVideos: response.t('The videos'),
                 download: response.t('Download the video'),
-                showUrl,
-                videosUrl,
                 baseUrl,
                 videoUrl: video.url,
               })

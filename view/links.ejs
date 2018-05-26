@@ -1,12 +1,12 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <% if (typeof titleChannels !== 'undefined') { %>
+    <% if (locals.titleChannels) { %>
     <li class="breadcrumb-item"><a href="<%- baseUrl %>/"><%- titleChannels %></a></li>
     <% } %>
-    <% if (typeof showUrl !== 'undefined') { %>
+    <% if (locals.showUrl) { %>
     <li class="breadcrumb-item"><a href="<%- showUrl %>"><%- titleShow %></a></li>
     <% } %>
-    <% if (typeof videosUrl !== 'undefined') { %>
+    <% if (locals.videosUrl) { %>
     <li class="breadcrumb-item"><a href="<%- videosUrl %>"><%- titleVideos %></a></li>
     <% } %>
     <li class="breadcrumb-item active" aria-current="page"><%- title %></li>
