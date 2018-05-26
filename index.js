@@ -23,7 +23,7 @@ app.use(express.static('public'))
 // I18n.
 i18n.configure({
   locales: langCodes,
-  directory: join(__dirname, '/../locales'),
+  directory: join(__dirname, '/locales'),
   api: {
     __: 't',
   },
