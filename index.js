@@ -3,6 +3,7 @@
 import express from 'express'
 import i18n from 'i18n'
 import { join } from 'path'
+import favicon from 'serve-favicon'
 import router from './routers/router'
 import { redirect, getLangCodes } from './lib/utils'
 
@@ -31,7 +32,7 @@ i18n.configure({
 app.use(i18n.init)
 
 // Routing.
-app.use(`/:langcode(${langCodes.join('|')})`, (request, response, next) => {
+app.use(`/:langcode(${langCodes.join('|')})`, favicon(join(__dirname, 'public', 'favicon.ico')), (request, response, next) => {
   i18n.setLocale(response, request.params.langcode)
   next()
 }, router)
