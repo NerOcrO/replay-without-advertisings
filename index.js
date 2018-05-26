@@ -4,8 +4,9 @@ import express from 'express'
 import i18n from 'i18n'
 import { join } from 'path'
 import favicon from 'serve-favicon'
-import router from './routers/router'
-import { redirect, getLangCodes } from './lib/utils'
+import router from './middlewares/router'
+import redirect from './middlewares/redirect'
+import { getLangCodes } from './lib/utils'
 
 const app = express()
 const port = process.env.PORT || 8080
