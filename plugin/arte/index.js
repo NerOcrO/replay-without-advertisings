@@ -33,7 +33,7 @@ const channel = {
     get(url, (res) => {
       debug(response.t('Show: %s', url))
 
-      if (!hasError(response, res)) {
+      if (hasError(response, res)) {
         return
       }
 
@@ -97,7 +97,7 @@ const channel = {
     get(url, (res) => {
       debug(response.t('Videos: %s', url))
 
-      if (!hasError(response, res)) {
+      if (hasError(response, res)) {
         return
       }
 
@@ -167,7 +167,7 @@ const channel = {
     get(url, (res) => {
       debug(response.t('Video: %s', url))
 
-      if (!hasError(response, res)) {
+      if (hasError(response, res)) {
         return
       }
 
