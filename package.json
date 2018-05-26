@@ -2,10 +2,10 @@
   "name": "replay",
   "version": "1.0.0",
   "description": "Replay without advertisings",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "DEBUG=utils nodemon lib/app.js --exec babel-node",
-    "start": "node bin/prod"
+    "dev": "DEBUG=utils nodemon index.js --exec babel-node",
+    "start": "node -r babel-register index.js"
   },
   "keywords": [
     "debug",

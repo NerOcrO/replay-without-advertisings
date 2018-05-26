@@ -3,8 +3,8 @@
 import express from 'express'
 import i18n from 'i18n'
 import { join } from 'path'
-import router from '../controller/replay'
-import { redirect, getLangCodes } from '../lib/utils'
+import router from './routers/router'
+import { redirect, getLangCodes } from './lib/utils'
 
 const app = express()
 const port = process.env.PORT || 8080
@@ -13,7 +13,7 @@ const langCodes = getLangCodes()
 // Templating by default.
 app.set('view engine', 'ejs')
 // Views directory.
-app.set('views', './view')
+app.set('views', './views')
 // I don't want to see x-powered-by...
 app.set('x-powered-by', false)
 
