@@ -1,5 +1,6 @@
 'use strict'
 
+import compression from 'compression'
 import express from 'express'
 import helmet from 'helmet'
 import i18n from 'i18n'
@@ -20,6 +21,9 @@ app.set('views', './views')
 
 // Header protection.
 app.use(helmet())
+
+// Compress all responses.
+app.use(compression())
 
 // Static files.
 app.use(express.static('public'))
