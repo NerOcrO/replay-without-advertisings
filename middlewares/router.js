@@ -45,7 +45,11 @@ function showPage(request, response, method) {
     channel[method](request, response)
   }
   else {
-    response.status(404).send(response.t('Sorry, we cannot find that!'))
+    response.status(404).render('layout', {
+      page: 'error',
+      title: response.t('Error 404'),
+      error: response.t('Sorry, we cannot find that!'),
+    })
   }
 }
 
