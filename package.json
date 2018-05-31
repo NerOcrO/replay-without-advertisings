@@ -4,7 +4,7 @@
   "description": "Replay without advertisings",
   "main": "index.js",
   "scripts": {
-    "dev": "DEBUG=utils nodemon index.js --exec babel-node",
+    "dev": "DEBUG=replay nodemon index.js --exec babel-node",
     "start": "node -r babel-register index.js"
   },
   "keywords": [

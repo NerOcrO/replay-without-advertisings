@@ -1,6 +1,7 @@
 'use strict'
 
 import compression from 'compression'
+import Debug from 'debug'
 import express from 'express'
 import helmet from 'helmet'
 import i18n from 'i18n'
@@ -11,6 +12,7 @@ import redirect from './middlewares/redirect'
 import { getLangCodes } from './lib/utils'
 
 const app = express()
+const debug = Debug('replay')
 const port = process.env.PORT || 8080
 const langCodes = getLangCodes()
 
@@ -48,4 +50,4 @@ app.use(`/:langcode(${langCodes.join('|')})`, favicon(join(__dirname, 'public', 
 app.use(redirect)
 
 // Listening to XXXX port.
-app.listen(port, () => console.log(`=> http://localhost:${port} !`))
+app.listen(port, () => debug(`=> http://localhost:${port} !`))

@@ -3,7 +3,7 @@ import { get } from 'http'
 import { join } from 'path'
 import { hasError } from '../../lib/utils'
 
-const debug = Debug('utils')
+const debug = Debug('replay')
 
 const channel = {
 
@@ -53,12 +53,12 @@ const channel = {
           })
         }
         catch (error) {
-          console.error(error.message)
+          debug(error.message)
           response.status(500).send(response.t('Sorry, there is something wrong!'))
         }
       })
     }).on('error', (error) => {
-      console.error(response.t('Got error: %s', error.message))
+      debug(response.t('Got error: %s', error.message))
     })
   },
 
@@ -113,12 +113,12 @@ const channel = {
           })
         }
         catch (error) {
-          console.error(error.message)
+          debug(error.message)
           response.status(500).send(response.t('Sorry, there is something wrong!'))
         }
       })
     }).on('error', (error) => {
-      console.error(response.t('Got error: %s', error.message))
+      debug(response.t('Got error: %s', error.message))
     })
   },
 
@@ -167,12 +167,12 @@ const channel = {
           })
         }
         catch (error) {
-          console.error(error.message)
+          debug(error.message)
           response.status(500).send(response.t('Sorry, there is something wrong!'))
         }
       })
     }).on('error', (error) => {
-      console.error(response.t('Got error: %s', error.message))
+      debug(response.t('Got error: %s', error.message))
     })
   },
 
