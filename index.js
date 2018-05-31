@@ -1,6 +1,7 @@
 'use strict'
 
 import express from 'express'
+import helmet from 'helmet'
 import i18n from 'i18n'
 import { join } from 'path'
 import favicon from 'serve-favicon'
@@ -16,8 +17,9 @@ const langCodes = getLangCodes()
 app.set('view engine', 'ejs')
 // Views directory.
 app.set('views', './views')
-// I don't want to see x-powered-by...
-app.set('x-powered-by', false)
+
+// Header protection.
+app.use(helmet())
 
 // Static files.
 app.use(express.static('public'))
