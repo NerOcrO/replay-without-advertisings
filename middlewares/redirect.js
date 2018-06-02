@@ -9,9 +9,7 @@ import * as utils from '../lib/utils'
  * @return {String}
  *   Lang code.
  */
-function getBrowserLangCode(request) {
-  return utils.getLangCodes().find(langCode => request.acceptsLanguages(langCode) === langCode)
-}
+const getBrowserLangCode = request => utils.getLangCodes().find(langCode => request.acceptsLanguages(langCode) === langCode)
 
 /**
  * Redirect when there is no langcode.
@@ -23,7 +21,7 @@ function getBrowserLangCode(request) {
  * @param {Function} next
  *   The callback.
  */
-function redirect(request, response, next) {
+const redirect = (request, response, next) => {
   const { originalUrl } = request
   const routes = utils.getRoutes().map(value => value.route.replace(/:channelId|:showId|:videoId/g, '([a-z]+)'))
   const routeIsValid = routes.some((route) => {

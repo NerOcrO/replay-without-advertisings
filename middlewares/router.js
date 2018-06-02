@@ -11,7 +11,7 @@ import * as utils from '../lib/utils'
  * @param {Object} response
  *   Response object.
  */
-function showHomePage(request, response) {
+const showHomePage = (request, response) => {
   const data = fs.readFileSync('./data/channels.json', 'utf8')
 
   response.locals.channels = JSON.parse(data).map(channel => (
@@ -37,7 +37,7 @@ function showHomePage(request, response) {
  * @param {String} method
  *   Method.
  */
-function showPage(request, response, method) {
+const showPage = (request, response, method) => {
   const pluginPath = join(__dirname, '..', 'plugins', request.params.channelId, 'index.js')
 
   if (fs.existsSync(pluginPath)) {
