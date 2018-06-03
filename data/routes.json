@@ -1,18 +1,18 @@
 [
   {
-    "route": "/",
+    "value": "/",
     "view": ""
   },
   {
-    "route": "/channel/:channelId",
+    "value": "/channel/:channelId",
     "view": "show"
   },
   {
-    "route": "/channel/:channelId/show/:showId",
+    "value": "/channel/:channelId/show/:showId",
     "view": "videos"
   },
   {
-    "route": "/channel/:channelId/show/:showId/video/:videoId",
+    "value": "/channel/:channelId/show/:showId/video/:videoId",
     "view": "video"
   }
 ]

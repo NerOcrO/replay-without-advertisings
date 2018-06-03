@@ -1,7 +1,10 @@
+import Debug from 'debug'
 import express from 'express'
 import fs from 'fs'
 import { join } from 'path'
 import * as utils from '../lib/utils'
+
+const debug = Debug('replay')
 
 /**
  * Get the home.
@@ -12,18 +15,22 @@ import * as utils from '../lib/utils'
  *   Response object.
  */
 const showHomePage = (request, response) => {
-  const data = fs.readFileSync('./data/channels.json', 'utf8')
-
-  response.locals.channels = JSON.parse(data).map(channel => (
-    {
-      url: join('channel', channel.id),
-      label: channel.label,
+  fs.readFile('./data/channels.json', 'utf8', (error, lines) => {
+    if (error) {
+      throw error
     }
-  ))
 
-  response.render('layout', {
-    page: 'channel',
-    title: response.t('The channels'),
+    response.locals.channels = JSON.parse(lines).map(channel => (
+      {
+        url: join('channel', channel.id),
+        label: channel.label,
+      }
+    ))
+
+    response.render('layout', {
+      page: 'channel',
+      title: response.t('The channels'),
+    })
   })
 }
 
@@ -40,30 +47,29 @@ const showHomePage = (request, response) => {
 const showPage = (request, response, method) => {
   const pluginPath = join(__dirname, '..', 'plugins', request.params.channelId, 'index.js')
 
-  if (fs.existsSync(pluginPath)) {
-    const channel = require(pluginPath).default
-    channel[method](request, response)
-  }
-  else {
-    response.status(404).render('layout', {
-      page: 'error',
-      title: response.t('Error 404'),
-      error: response.t('Sorry, we cannot find that!'),
-    })
-  }
+  fs.access(pluginPath, (error) => {
+    if (error) {
+      response.status(404).render('layout', {
+        page: 'error',
+        title: response.t('Error 404'),
+        error: response.t('Sorry, we cannot find that!'),
+      })
+    }
+    else {
+      const channel = require(pluginPath).default
+      channel[method](request, response)
+    }
+  })
 }
 
 const router = express.Router()
 
-utils.getRoutes().forEach((value) => {
-  router.get(value.route, (request, response) => {
-    if (value.route === '/') {
-      showHomePage(request, response)
-    }
-    else {
-      showPage(request, response, value.view)
-    }
-  })
-})
+utils.getRoutes()
+  .then(routes =>
+    routes.forEach(route =>
+      router.get(route.value, (request, response) => (
+        route.value === '/' ? showHomePage(request, response) : showPage(request, response, route.view)
+      ))))
+  .catch(error => debug(error))
 
 export default router

@@ -14,7 +14,6 @@ import { getLangCodes } from './lib/utils'
 const app = express()
 const debug = Debug('replay')
 const port = process.env.PORT || 8080
-const langCodes = getLangCodes()
 
 // Templating by default.
 app.set('view engine', 'ejs')
@@ -30,24 +29,28 @@ app.use(compression())
 // Static files.
 app.use(express.static('public'))
 
-// I18n.
-i18n.configure({
-  locales: langCodes,
-  directory: join(__dirname, '/locales'),
-  api: {
-    __: 't',
-  },
-})
-app.use(i18n.init)
+getLangCodes()
+  .then((langCodes) => {
+    // I18n.
+    i18n.configure({
+      locales: langCodes,
+      directory: join(__dirname, 'locales'),
+      api: {
+        __: 't',
+      },
+    })
+    app.use(i18n.init)
 
-// Routing.
-app.use(`/:langcode(${langCodes.join('|')})`, favicon(join(__dirname, 'public', 'favicon.ico')), (request, response, next) => {
-  i18n.setLocale(response, request.params.langcode)
-  next()
-}, router)
+    // Routing.
+    app.use(`/:langcode(${langCodes.join('|')})`, favicon(join(__dirname, 'public', 'favicon.ico')), (request, response, next) => {
+      i18n.setLocale(response, request.params.langcode)
+      next()
+    }, router)
 
-// Redirect.
-app.use(redirect)
+    // Redirect.
+    app.use(redirect)
+  })
+  .catch(error => debug(error))
 
 // Listening to XXXX port.
 app.listen(port, () => debug(`=> http://localhost:${port} !`))
