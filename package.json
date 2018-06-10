@@ -35,5 +35,9 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "nodemon": "^1.17.5"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/NerOcrO/replay-without-advertisings"
   }
 }
