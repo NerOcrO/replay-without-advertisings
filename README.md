@@ -1,5 +1,8 @@
 # Replay without advertisings
 
+![node version](https://img.shields.io/badge/node-&#10878;8-green.svg)
+![ISC license](https://img.shields.io/badge/licence-ISC-blue.svg)
+
 ## HOW IT WORKS
 
 Testing your app on local
