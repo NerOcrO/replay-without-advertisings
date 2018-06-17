@@ -48,7 +48,7 @@ const channel = {
 
           response.render('layout', {
             page: 'show',
-            title: response.t('The show'),
+            title: request.params.channelId.toUpperCase(),
             titleChannels: response.t('The channels'),
           })
         }
@@ -108,7 +108,7 @@ const channel = {
             page: 'videos',
             title: data.currentPage.displayName,
             titleChannels: response.t('The channels'),
-            titleShow: response.t('The show'),
+            titleShow: request.params.channelId.toUpperCase(),
             baseUrl,
           })
         }
@@ -159,7 +159,7 @@ const channel = {
             page: 'video',
             title: `${data.detail.informations.title} | ${data.detail.informations.subtitle}`,
             titleChannels: response.t('The channels'),
-            titleShow: response.t('The show'),
+            titleShow: request.params.channelId.toUpperCase(),
             titleVideos: response.t('The videos'),
             download: response.t('Download the video'),
             showUrl,
