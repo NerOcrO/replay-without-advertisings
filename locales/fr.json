@@ -9,7 +9,5 @@
   "Video: %s": "Vidéo: %s",
   "Download the video": "Télécharger la vidéo",
   "Got error: %s": "Nous avons une erreur : %s",
-  "Request Failed.\nStatus Code: %s": "Requête échouée.\nCode statut : %s",
-  "Invalid content-type.\nExpected application/json but received %s": "Type de contenu invalide.\napplication/json était attendu mais reçu %s",
   "Error 404": "Erreur 404"
 }

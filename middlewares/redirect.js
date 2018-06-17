@@ -59,10 +59,10 @@ const redirect = (request, response, next) => {
             response.redirect(`/${langCode}${originalUrl}`))
           .catch(error => debug(error))
       }
+
+      next()
     })
     .catch(error => debug(error))
-
-  next()
 }
 
 export default redirect
