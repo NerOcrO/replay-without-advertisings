@@ -26,10 +26,8 @@ const getBrowserLangCode = request =>
  *   Request object.
  * @param {Response} response
  *   Response object.
- * @param {NextFunction} next
- *   The callback.
  */
-const redirect = (request, response, next) => {
+const redirect = (request, response) => {
   const { originalUrl } = request
 
   utils.getRoutes()
@@ -59,8 +57,6 @@ const redirect = (request, response, next) => {
             response.redirect(`/${langCode}${originalUrl}`))
           .catch(error => debug(error))
       }
-
-      next()
     })
     .catch(error => debug(error))
 }
