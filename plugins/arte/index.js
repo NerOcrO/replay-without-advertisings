@@ -17,9 +17,9 @@ const channel = {
   /**
    * Show's page.
    *
-   * @param {Object} request
+   * @param {Request} request
    *   Request object.
-   * @param {Object} response
+   * @param {Response} response
    *   Response object.
    */
   show(request, response) {
@@ -54,9 +54,9 @@ const channel = {
   /**
    * Videos page.
    *
-   * @param {Object} request
+   * @param {Request} request
    *   Request object.
-   * @param {Object} response
+   * @param {Response} response
    *   Response object.
    */
   videos(request, response) {
@@ -97,9 +97,9 @@ const channel = {
   /**
    * Video's page.
    *
-   * @param {Object} request
+   * @param {Request} request
    *   Request object.
-   * @param {Object} response
+   * @param {Response} response
    *   Response object.
    */
   video(request, response) {

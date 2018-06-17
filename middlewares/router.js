@@ -9,9 +9,9 @@ const debug = Debug('replay')
 /**
  * Get the home.
  *
- * @param {Object} request
+ * @param {Request} request
  *   Request object.
- * @param {Object} response
+ * @param {Response} response
  *   Response object.
  */
 const showHomePage = (request, response) => {
@@ -37,12 +37,12 @@ const showHomePage = (request, response) => {
 /**
  * Get plugin.
  *
- * @param {Object} request
+ * @param {Request} request
  *   Request object.
- * @param {Object} response
+ * @param {Response} response
  *   Response object.
  * @param {String} method
- *   Method.
+ *   The method.
  */
 const showPage = (request, response, method) => {
   const pluginPath = join(__dirname, '..', 'plugins', request.params.channelId, 'index.js')

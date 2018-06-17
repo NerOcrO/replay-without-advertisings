@@ -4,6 +4,7 @@
   "description": "Replay without advertisings",
   "main": "index.js",
   "scripts": {
+    "test": "./node_modules/mocha/bin/mocha --require babel-core/register",
     "dev": "DEBUG=replay nodemon index.js --exec babel-node",
     "start": "node -r babel-register index.js"
   },
@@ -35,6 +36,9 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^5.2.0",
     "nodemon": "^1.17.5"
   },
   "repository": {

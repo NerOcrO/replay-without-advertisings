@@ -6,7 +6,7 @@ const debug = Debug('replay')
 /**
  * Get the default browser lang code.
  *
- * @param {Object} request
+ * @param {Request} request
  *  Request object.
  *
  * @return {String}
@@ -22,11 +22,11 @@ const getBrowserLangCode = request =>
 /**
  * Redirect when there is no langcode.
  *
- * @param {Object} request
+ * @param {Request} request
  *   Request object.
- * @param {Object} response
+ * @param {Response} response
  *   Response object.
- * @param {Function} next
+ * @param {NextFunction} next
  *   The callback.
  */
 const redirect = (request, response, next) => {
