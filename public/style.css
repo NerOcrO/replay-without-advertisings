@@ -1,0 +1,38 @@
+.dark-theme {
+  background-color: #121212;
+}
+.dark-theme nav ol {
+  background-color: #232323;
+}
+.dark-theme nav .active {
+  color: #fff;
+}
+.dark-theme .list-group a {
+  background-color: #232323;
+  color: #fff;
+}
+header > div {
+  display: flex;
+}
+nav {
+  flex: auto;
+}
+#nightMode {
+  height: 47px;
+}
+main {
+  margin-top: 65px;
+}
+video {
+  width: 100%;
+}
+@media (max-width: 800px) {
+  .list-group img {
+    width: 100%;
+  }
+}
+@media (min-width: 800px) {
+  .list-group img {
+    height: 300px;
+  }
+}

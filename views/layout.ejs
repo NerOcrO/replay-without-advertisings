@@ -6,30 +6,17 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
   </head>
   <body>
-    <header class="container">
-      <%- include('links') %>
+    <header class="fixed-top">
+      <div>
+        <%- include('links') %>
+        <%- include('night-mode') %>
+      </div>
     </header>
     <main class="container">
       <%- include(page) %>
     </main>
-    <style>
-    header {
-      height: 65px;
-    }
-    video {
-      width: 100%;
-    }
-    @media (max-width: 800px) {
-      .list-group img {
-        width: 100%;
-      }
-    }
-    @media (min-width: 800px) {
-      .list-group img {
-        height: 300px;
-      }
-    }
-    </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js"></script>
   </body>
 </html>
