@@ -11,5 +11,6 @@
   "Got error: %s": "Nous avons une erreur : %s",
   "Error 404": "Erreur 404",
   "Dark": "Foncé",
-  "Light": "Clair"
+  "Light": "Clair",
+  "Back to top": "Revenir en haut"
 }
