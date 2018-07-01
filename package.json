@@ -20,7 +20,8 @@
   "author": "NerOcrO",
   "license": "ISC",
   "engines": {
-    "node": ">=8"
+    "node": ">=6.0.0",
+    "npm": ">=3.8.6"
   },
   "dependencies": {
     "axios": "^0.18.0",
