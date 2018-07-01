@@ -7,10 +7,7 @@ const debug = Debug('replay')
 
 const channel = {
 
-  baseUrl: 'https://service.mycanal.fr/',
-  showUrl: 'page/f7a409073d5e935fd5ee776ae284b644/4578.json',
-  videosUrl: 'page/f7a409073d5e935fd5ee776ae284b644/{{ID}}.json',
-  videoUrl: 'getMediaUrl/f7a409073d5e935fd5ee776ae284b644/{{ID}}.json',
+  baseReplayUrl: 'https://service.mycanal.fr/',
 
   /**
    * Show's page.
@@ -21,12 +18,12 @@ const channel = {
    *   Response object.
    */
   show(request, response) {
-    const url = this.showUrl
-
-    // Get the JSON.
-    axios.get(url, { baseURL: this.baseUrl })
+    axios.get(
+      'page/f7a409073d5e935fd5ee776ae284b644/4578.json',
+      { baseURL: this.baseReplayUrl },
+    )
       .then((res) => {
-        debug(response.t('Show: %s', this.baseUrl + url))
+        debug(response.t('Show: %s', res.config.url))
 
         response.locals.baseUrl = request.baseUrl
         response.locals.variables = res.data.strates[0].contents.map(program => (
@@ -57,12 +54,13 @@ const channel = {
   videos(request, response) {
     const { baseUrl } = request
     const { showId } = request.params
-    const url = this.videosUrl.replace(/{{ID}}/, showId)
 
-    // Get the JSON.
-    axios.get(url, { baseURL: this.baseUrl })
+    axios.get(
+      `page/f7a409073d5e935fd5ee776ae284b644/${showId}.json`,
+      { baseURL: this.baseReplayUrl },
+    )
       .then((res) => {
-        debug(response.t('Videos: %s', this.baseUrl + url))
+        debug(response.t('Videos: %s', res.config.url))
 
         response.locals.showUrl = join(baseUrl, 'channel', request.params.channelId)
         response.locals.variables = res.data.strates
@@ -98,12 +96,13 @@ const channel = {
   video(request, response) {
     const { baseUrl } = request
     const showUrl = join(baseUrl, 'channel', request.params.channelId)
-    const url = this.videoUrl.replace(/{{ID}}/, request.params.videoId)
 
-    // Get the JSON.
-    axios.get(url, { baseURL: this.baseUrl, params: { pfv: '{FORMAT}' } })
+    axios.get(
+      `getMediaUrl/f7a409073d5e935fd5ee776ae284b644/${request.params.videoId}.json`,
+      { baseURL: this.baseReplayUrl, params: { pfv: '{FORMAT}' } },
+    )
       .then((res) => {
-        debug(response.t('Video: %s', this.baseUrl + url))
+        debug(response.t('Video: %s', res.config.url))
 
         response.locals.videosUrl = join(showUrl, 'show', request.params.showId)
         response.locals.videoUrl = res.data.detail.informations.videoURLs[0].videoURL

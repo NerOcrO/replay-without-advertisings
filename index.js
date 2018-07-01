@@ -7,6 +7,7 @@ import helmet from 'helmet'
 import i18n from 'i18n'
 import { join } from 'path'
 import favicon from 'serve-favicon'
+import date from './middlewares/date'
 import router from './middlewares/router'
 import redirect from './middlewares/redirect'
 import { getLangCodes } from './lib/utils'
@@ -29,6 +30,9 @@ app.use(compression())
 
 // Static files.
 app.use(express.static('public'))
+
+// The date.
+app.use(date)
 
 getLangCodes()
   .then((langCodes) => {
