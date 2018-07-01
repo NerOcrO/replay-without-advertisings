@@ -4,9 +4,9 @@
   const $ = selector => document.querySelector(selector)
   const getDarkTheme = (item = 'darkTheme') => JSON.parse(localStorage.getItem(item))
   const setLightTheme = (event) => {
-    event.originalTarget.innerHTML = '🌙'
-    event.originalTarget.className = 'btn btn-dark'
-    event.originalTarget.title = 'Dark'
+    event.currentTarget.innerHTML = '🌙'
+    event.currentTarget.className = 'btn btn-dark'
+    event.currentTarget.title = 'Dark'
     $('body').classList.remove('dark-theme')
   }
   const setDarkTheme = () => {
