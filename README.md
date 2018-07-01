@@ -4,7 +4,7 @@
 ![npm version](https://img.shields.io/badge/npm-&#10878;3.8.6-green.svg)
 ![ISC license](https://img.shields.io/badge/licence-ISC-blue.svg)
 
-## HOW IT WORKS
+## How it works
 
 Testing your app on local
 > npm run dev
@@ -14,29 +14,18 @@ Ready for the production!
 
 Then go to your web browser : <http://localhost:8080/>
 
-## HOW TO CREATE A PLUGIN
+## How to create a plugin
 
-Just make a directory and associate it a index.js file, fill ./data/channels.json and that's all!
+Just make a directory and associate it a index.js file,
+fill ./data/channels.json and that's all!
+
 Take a look on arte or c8 for more example.
 
-## LEARNED
+## Documentation
 
-* express
-* http
-* filesystem
-* i18n
-* debug
-* date
-* error
-* templating
-* bootstrap
-* ARIA
-* responsive
-* babel
-* nodemon
-
-## DOCUMENTATIONS
-
-* <https://nodejs.org/dist/latest-v10.x/docs/api/all.html>
-* <https://expressjs.com/en/4x/api.html>
+* <https://github.com/axios/axios>
+* <http://www.chaijs.com/>
+* <https://github.com/visionmedia/debug>
 * <http://ejs.co/#docs>
+* <https://expressjs.com/>
+* <https://mochajs.org/>
