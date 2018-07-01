@@ -5,10 +5,9 @@ import { axiosErrorHandler } from '../../lib/utils'
 
 const debug = Debug('replay')
 
-axios.defaults.baseURL = 'https://service.mycanal.fr/'
-
 const channel = {
 
+  baseUrl: 'https://service.mycanal.fr/',
   showUrl: 'page/f7a409073d5e935fd5ee776ae284b644/4578.json',
   videosUrl: 'page/f7a409073d5e935fd5ee776ae284b644/{{ID}}.json',
   videoUrl: 'getMediaUrl/f7a409073d5e935fd5ee776ae284b644/{{ID}}.json',
@@ -25,9 +24,9 @@ const channel = {
     const url = this.showUrl
 
     // Get the JSON.
-    axios.get(url)
+    axios.get(url, { baseURL: this.baseUrl })
       .then((res) => {
-        debug(response.t('Show: %s', url))
+        debug(response.t('Show: %s', this.baseUrl + url))
 
         response.locals.baseUrl = request.baseUrl
         response.locals.variables = res.data.strates[0].contents.map(program => (
@@ -61,9 +60,9 @@ const channel = {
     const url = this.videosUrl.replace(/{{ID}}/, showId)
 
     // Get the JSON.
-    axios.get(url)
+    axios.get(url, { baseURL: this.baseUrl })
       .then((res) => {
-        debug(response.t('Videos: %s', url))
+        debug(response.t('Videos: %s', this.baseUrl + url))
 
         response.locals.showUrl = join(baseUrl, 'channel', request.params.channelId)
         response.locals.variables = res.data.strates
@@ -102,9 +101,9 @@ const channel = {
     const url = this.videoUrl.replace(/{{ID}}/, request.params.videoId)
 
     // Get the JSON.
-    axios.get(url, { params: { pfv: '{FORMAT}' } })
+    axios.get(url, { baseURL: this.baseUrl, params: { pfv: '{FORMAT}' } })
       .then((res) => {
-        debug(response.t('Video: %s', url))
+        debug(response.t('Video: %s', this.baseUrl + url))
 
         response.locals.videosUrl = join(showUrl, 'show', request.params.showId)
         response.locals.videoUrl = res.data.detail.informations.videoURLs[0].videoURL

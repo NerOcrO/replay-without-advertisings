@@ -5,11 +5,10 @@ import { axiosErrorHandler } from '../../lib/utils'
 
 const debug = Debug('replay')
 
-axios.defaults.baseURL = 'https://www.arte.tv/hbbtvv2/services/web/index.php/OPA/v3/'
-
 const channel = {
 
   date: new Date(),
+  baseUrl: 'https://www.arte.tv/hbbtvv2/services/web/index.php/OPA/v3/',
   showUrl: 'programs/{{DATE}}/fr',
   videosUrl: 'programs/{{DATE}}/fr',
   videoUrl: 'streams/{{ID}}/fr',
@@ -26,9 +25,9 @@ const channel = {
     const url = this.showUrl.replace(/{{DATE}}/, `${this.date.getFullYear()}${this.date.getMonth()}${this.date.getDay()}`)
 
     // Get the JSON.
-    axios.get(url)
+    axios.get(url, { baseURL: this.baseUrl })
       .then((res) => {
-        debug(response.t('Show: %s', url))
+        debug(response.t('Show: %s', axios.defaults.baseURL + url))
 
         response.locals.baseUrl = request.baseUrl
         response.locals.variables = res.data.programs
@@ -65,9 +64,9 @@ const channel = {
     const url = this.videosUrl.replace(/{{DATE}}/, `${this.date.getFullYear()}${this.date.getMonth()}${this.date.getDay()}`)
 
     // Get the JSON.
-    axios.get(url)
+    axios.get(url, { baseURL: this.baseUrl })
       .then((res) => {
-        debug(response.t('Videos: %s', url))
+        debug(response.t('Videos: %s', this.baseUrl + url))
 
         response.locals.showUrl = join(baseUrl, 'channel', request.params.channelId)
         response.locals.variables = res.data.programs
@@ -107,9 +106,9 @@ const channel = {
     const url = this.videoUrl.replace(/{{ID}}/, request.params.videoId)
 
     // Get the JSON.
-    axios.get(url)
+    axios.get(url, { baseURL: this.baseUrl })
       .then((res) => {
-        debug(response.t('Video: %s', url))
+        debug(response.t('Video: %s', this.baseUrl + url))
 
         res.data.videoStreams.forEach((video) => {
           if (video.quality === 'HQ' && (video.audioShortLabel === 'VF' || video.audioShortLabel === 'VOF')) {
