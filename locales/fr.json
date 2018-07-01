@@ -9,5 +9,7 @@
   "Video: %s": "Vidéo: %s",
   "Download the video": "Télécharger la vidéo",
   "Got error: %s": "Nous avons une erreur : %s",
-  "Error 404": "Erreur 404"
+  "Error 404": "Erreur 404",
+  "Dark": "Foncé",
+  "Light": "Clair"
 }
