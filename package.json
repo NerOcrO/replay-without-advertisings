@@ -29,8 +29,11 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "babel-preset-minify": "^0.4.3",
     "babel-register": "^6.26.0",
+    "clean-css-cli": "^4.1.11",
     "compression": "^1.7.2",
     "debug": "^3.1.0",
     "ejs": "^2.6.1",
@@ -40,11 +43,8 @@
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-minify": "^0.4.3",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
-    "clean-css-cli": "^4.1.11",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.13.0",
