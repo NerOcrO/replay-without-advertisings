@@ -4,9 +4,13 @@
   "description": "Replay without advertisings",
   "main": "index.js",
   "scripts": {
+    "build_js": "babel javascripts --out-file public/script.js --source-maps",
+    "build_css": "cleancss -o public/style.css css/* --source-map",
+    "build": "rm -rf public && mkdir public && npm run build_js && npm run build_css",
+    "watch_js": "npm run build_js -- -w",
     "test": "./node_modules/mocha/bin/mocha --require babel-core/register",
-    "dev": "DEBUG=replay nodemon index.js --exec babel-node",
-    "start": "node -r babel-register index.js"
+    "dev": "npm run build && DEBUG=replay nodemon --exec babel-node -- index.js",
+    "start": "npm run build && node -r babel-register index.js"
   },
   "keywords": [
     "debug",
@@ -37,8 +41,10 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-preset-minify": "^0.4.3",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
+    "clean-css-cli": "^4.1.11",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.13.0",

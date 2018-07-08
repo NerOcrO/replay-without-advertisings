@@ -30,6 +30,7 @@ app.use(compression())
 
 // Static files.
 app.use(express.static('public'))
+app.use(express.static('assets'))
 
 // The date.
 app.use(date)
@@ -47,7 +48,7 @@ getLangCodes()
     app.use(i18n.init)
 
     // Routing.
-    app.use(`/:langcode(${langCodes.join('|')})`, favicon(join(__dirname, 'public', 'favicon.ico')), (request, response, next) => {
+    app.use(`/:langcode(${langCodes.join('|')})`, favicon(join(__dirname, 'assets', 'favicon.ico')), (request, response, next) => {
       i18n.setLocale(response, request.params.langcode)
       next()
     }, router)

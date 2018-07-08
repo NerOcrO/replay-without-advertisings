@@ -6,7 +6,7 @@
 
 ## How it works
 
-Testing your app on local
+Run the app on local
 > npm run dev
 
 Ready for the production!
@@ -24,7 +24,9 @@ Take a look on arte or c8 for more example.
 ## Documentation
 
 * <https://github.com/axios/axios>
+* <https://babeljs.io/docs/en/babel-cli>
 * <http://www.chaijs.com/>
+* <https://github.com/jakubpawlowicz/clean-css-cli>
 * <https://github.com/visionmedia/debug>
 * <http://ejs.co/#docs>
 * <https://expressjs.com/>

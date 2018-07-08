@@ -4,6 +4,7 @@
 .dark-theme nav ol {
   background-color: #232323;
 }
+.dark-theme main p,
 .dark-theme nav .active {
   color: #fff;
 }
