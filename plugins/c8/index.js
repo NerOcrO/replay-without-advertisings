@@ -17,30 +17,33 @@ const channel = {
    * @param {Response} response
    *   Response object.
    */
-  show(request, response) {
-    axios.get(
+  async show(request, response) {
+    const res = await axios.get(
       'page/f7a409073d5e935fd5ee776ae284b644/4578.json',
       { baseURL: this.baseReplayUrl },
     )
-      .then((res) => {
-        debug(response.t('Show: %s', res.config.url))
 
-        response.locals.baseUrl = request.baseUrl
-        response.locals.variables = res.data.strates[0].contents.map(program => (
-          {
-            url: join(request.params.channelId, 'show', program.onClick.URLPage.match(/(\d+).json/)[1]),
-            label: program.onClick.displayName,
-            image: program.URLImageCompact,
-          }
-        ))
+    try {
+      debug(response.t('Show: %s', res.config.url))
 
-        response.render('layout', {
-          page: 'show',
-          title: request.params.channelId.toUpperCase(),
-          titleChannels: response.t('The channels'),
-        })
+      response.locals.baseUrl = request.baseUrl
+      response.locals.variables = res.data.strates[0].contents.map(program => (
+        {
+          url: join(request.params.channelId, 'show', program.onClick.URLPage.match(/(\d+).json/)[1]),
+          label: program.onClick.displayName,
+          image: program.URLImageCompact,
+        }
+      ))
+
+      response.render('layout', {
+        page: 'show',
+        title: request.params.channelId.toUpperCase(),
+        titleChannels: response.t('The channels'),
       })
-      .catch(error => axiosErrorHandler(error, response))
+    }
+    catch (error) {
+      axiosErrorHandler(error, response)
+    }
   },
 
   /**
@@ -51,38 +54,41 @@ const channel = {
    * @param {Response} response
    *   Response object.
    */
-  videos(request, response) {
+  async videos(request, response) {
     const { baseUrl } = request
     const { showId } = request.params
 
-    axios.get(
+    const res = await axios.get(
       `page/f7a409073d5e935fd5ee776ae284b644/${showId}.json`,
       { baseURL: this.baseReplayUrl },
     )
-      .then((res) => {
-        debug(response.t('Videos: %s', res.config.url))
 
-        response.locals.showUrl = join(baseUrl, 'channel', request.params.channelId)
-        response.locals.variables = res.data.strates
-          .filter(strate => strate.type === 'contentRow')
-          .reduce((accumulator, program) => accumulator.concat(program.contents), [])
-          .map(value => (
-            {
-              url: join(showId, 'video', value.onClick.URLPage.match(/(\d+).json/)[1]),
-              label: `${value.title}<br>${value.subtitle}`,
-              image: value.URLImage,
-            }
-          ))
+    try {
+      debug(response.t('Videos: %s', res.config.url))
 
-        response.render('layout', {
-          page: 'videos',
-          title: res.data.currentPage.displayName,
-          titleChannels: response.t('The channels'),
-          titleShow: request.params.channelId.toUpperCase(),
-          baseUrl,
-        })
+      response.locals.showUrl = join(baseUrl, 'channel', request.params.channelId)
+      response.locals.variables = res.data.strates
+        .filter(strate => strate.type === 'contentRow')
+        .reduce((accumulator, program) => accumulator.concat(program.contents), [])
+        .map(value => (
+          {
+            url: join(showId, 'video', value.onClick.URLPage.match(/(\d+).json/)[1]),
+            label: `${value.title}<br>${value.subtitle}`,
+            image: value.URLImage,
+          }
+        ))
+
+      response.render('layout', {
+        page: 'videos',
+        title: res.data.currentPage.displayName,
+        titleChannels: response.t('The channels'),
+        titleShow: request.params.channelId.toUpperCase(),
+        baseUrl,
       })
-      .catch(error => axiosErrorHandler(error, response))
+    }
+    catch (error) {
+      axiosErrorHandler(error, response)
+    }
   },
 
   /**
@@ -93,32 +99,35 @@ const channel = {
    * @param {Response} response
    *   Response object.
    */
-  video(request, response) {
+  async video(request, response) {
     const { baseUrl } = request
     const showUrl = join(baseUrl, 'channel', request.params.channelId)
 
-    axios.get(
+    const res = await axios.get(
       `getMediaUrl/f7a409073d5e935fd5ee776ae284b644/${request.params.videoId}.json`,
       { baseURL: this.baseReplayUrl, params: { pfv: '{FORMAT}' } },
     )
-      .then((res) => {
-        debug(response.t('Video: %s', res.config.url))
 
-        response.locals.videosUrl = join(showUrl, 'show', request.params.showId)
-        response.locals.videoUrl = res.data.detail.informations.videoURLs[0].videoURL
+    try {
+      debug(response.t('Video: %s', res.config.url))
 
-        response.render('layout', {
-          page: 'video',
-          title: `${res.data.detail.informations.title} | ${res.data.detail.informations.subtitle}`,
-          titleChannels: response.t('The channels'),
-          titleShow: request.params.channelId.toUpperCase(),
-          titleVideos: response.t('The videos'),
-          download: response.t('Download the video'),
-          showUrl,
-          baseUrl,
-        })
+      response.locals.videosUrl = join(showUrl, 'show', request.params.showId)
+      response.locals.videoUrl = res.data.detail.informations.videoURLs[0].videoURL
+
+      response.render('layout', {
+        page: 'video',
+        title: `${res.data.detail.informations.title} | ${res.data.detail.informations.subtitle}`,
+        titleChannels: response.t('The channels'),
+        titleShow: request.params.channelId.toUpperCase(),
+        titleVideos: response.t('The videos'),
+        download: response.t('Download the video'),
+        showUrl,
+        baseUrl,
       })
-      .catch(error => axiosErrorHandler(error, response))
+    }
+    catch (error) {
+      axiosErrorHandler(error, response)
+    }
   },
 
 }
