@@ -19,10 +19,10 @@ nav {
   flex: auto;
 }
 #nightMode {
-  height: 47px;
+  margin-bottom: 1rem;
 }
 main {
-  margin-top: 65px;
+  margin-top: 3rem;
 }
 video {
   width: 100%;
