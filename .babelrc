@@ -1,3 +1,13 @@
 {
-  "presets": ["env", "minify"]
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ],
+    "minify"
+  ]
 }
