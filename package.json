@@ -9,7 +9,7 @@
     "build": "rm -rf public && mkdir public && npm run build_js && npm run build_css",
     "watch_js": "npm run build_js -- -w",
     "test": "./node_modules/mocha/bin/mocha --require babel-core/register",
-    "dev": "npm run build && DEBUG=replay nodemon --exec babel-node -- index.js",
+    "dev": "npm run build && DEBUG=replay nodemon -- index.js",
     "start": "npm run build && node -r babel-register index.js"
   },
   "keywords": [
