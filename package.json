@@ -32,12 +32,12 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-minify": "^0.4.3",
     "babel-register": "^6.26.0",
-    "clean-css-cli": "^4.1.11",
-    "compression": "^1.7.2",
+    "clean-css-cli": "^4.2.0",
+    "compression": "^1.7.3",
     "debug": "^3.1.0",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
-    "helmet": "^3.12.1",
+    "helmet": "^3.13.0",
     "i18n": "^0.8.3",
     "node-fetch": "^2.2.0",
     "serve-favicon": "^2.5.0"
@@ -48,10 +48,10 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-jsx-a11y": "^6.1.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
     "mocha": "^5.2.0",
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.18.3"
   },
   "repository": {
     "type": "git",
