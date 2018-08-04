@@ -23,7 +23,6 @@ Take a look on arte or c8 for more example.
 
 ## Documentation
 
-* <https://github.com/axios/axios>
 * <https://babeljs.io/docs/en/babel-cli>
 * <http://www.chaijs.com/>
 * <https://github.com/jakubpawlowicz/clean-css-cli>
@@ -31,3 +30,4 @@ Take a look on arte or c8 for more example.
 * <http://ejs.co/#docs>
 * <https://expressjs.com/>
 * <https://mochajs.org/>
+* <https://github.com/bitinn/node-fetch>
