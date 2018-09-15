@@ -6,11 +6,10 @@ import express from 'express'
 import helmet from 'helmet'
 import i18n from 'i18n'
 import { join } from 'path'
-import favicon from 'serve-favicon'
-import date from './middlewares/date'
-import router from './middlewares/router'
-import redirect from './middlewares/redirect'
-import { getLangCodes } from './lib/utils'
+import date from './src/middlewares/date'
+import router from './src/middlewares/router'
+import redirect from './src/middlewares/redirect'
+import { getLangCodes } from './src/lib/utils'
 
 const app = express()
 const debug = Debug('replay')
@@ -20,7 +19,7 @@ const port = process.env.PORT || 8080
 app.set('view engine', 'ejs')
 app.set('view options', { rmWhitespace: true })
 // Views directory.
-app.set('views', './views')
+app.set('views', 'src/views')
 
 // Header protection.
 app.use(helmet())
@@ -30,7 +29,7 @@ app.use(compression())
 
 // Static files.
 app.use(express.static('public'))
-app.use(express.static('assets'))
+app.use(express.static('src/assets'))
 
 // The date.
 app.use(date)
@@ -40,7 +39,7 @@ getLangCodes()
     // I18n.
     i18n.configure({
       locales: langCodes,
-      directory: join(__dirname, 'locales'),
+      directory: join(__dirname, 'src/locales'),
       api: {
         __: 't',
       },
@@ -48,7 +47,7 @@ getLangCodes()
     app.use(i18n.init)
 
     // Routing.
-    app.use(`/:langcode(${langCodes.join('|')})`, favicon(join(__dirname, 'assets', 'favicon.ico')), (request, response, next) => {
+    app.use(`/:langcode(${langCodes.join('|')})`, (request, response, next) => {
       i18n.setLocale(response, request.params.langcode)
       next()
     }, router)

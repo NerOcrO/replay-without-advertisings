@@ -26,7 +26,7 @@ export const fetchErrorHandler = (error, response) => {
  * @return {Promise}
  *   The Promise to be fulfilled.
  */
-export const getRoutes = (path = './data/routes.json') =>
+export const getRoutes = (path = './src/data/routes.json') =>
   new Promise((resolve, reject) =>
     fs.readFile(path, 'utf8', (error, lines) => (
       error ? reject(error) : resolve(JSON.parse(lines))
@@ -41,7 +41,7 @@ export const getRoutes = (path = './data/routes.json') =>
  * @return {Promise}
  *   The Promise to be fulfilled.
  */
-export const getLangCodes = (path = './locales/') =>
+export const getLangCodes = (path = './src/locales/') =>
   new Promise((resolve, reject) =>
     fs.readdir(path, (error, files) => {
       if (error) {

@@ -4,8 +4,8 @@
   "description": "Replay without advertisings",
   "main": "index.js",
   "scripts": {
-    "build_js": "babel javascripts --out-file public/script.js --source-maps",
-    "build_css": "cleancss -o public/style.css css/* --source-map",
+    "build_js": "babel src/javascripts --out-file public/script.js --source-maps",
+    "build_css": "cleancss -o public/style.css src/css/* --source-map",
     "build": "rm -rf public && mkdir public && npm run build_js && npm run build_css",
     "watch_js": "npm run build_js -- -w",
     "watch_css": "watch -n 0.5 -x npm run build_css",
@@ -40,8 +40,7 @@
     "express": "^4.16.3",
     "helmet": "^3.13.0",
     "i18n": "^0.8.3",
-    "node-fetch": "^2.2.0",
-    "serve-favicon": "^2.5.0"
+    "node-fetch": "^2.2.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",

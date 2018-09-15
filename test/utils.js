@@ -2,7 +2,7 @@
 
 import chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
-import * as utils from '../lib/utils'
+import * as utils from '../src/lib/utils'
 
 chai.use(chaiAsPromised)
 chai.should()

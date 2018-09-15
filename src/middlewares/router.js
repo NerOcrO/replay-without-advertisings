@@ -15,7 +15,7 @@ const debug = Debug('replay')
  *   Response object.
  */
 const showHomePage = (request, response) => {
-  fs.readFile('./data/channels.json', 'utf8', (error, lines) => {
+  fs.readFile('./src/data/channels.json', 'utf8', (error, lines) => {
     if (error) {
       throw error
     }
