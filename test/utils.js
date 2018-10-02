@@ -1,7 +1,6 @@
-/* eslint-env mocha */
-
 import chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
+
 import * as utils from '../src/lib/utils'
 
 chai.use(chaiAsPromised)

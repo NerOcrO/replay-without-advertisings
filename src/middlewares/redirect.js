@@ -12,12 +12,16 @@ const debug = Debug('replay')
  * @return {String}
  *   Lang code.
  */
-const getBrowserLangCode = request =>
-  utils.getLangCodes()
-    .then(langCodes =>
-      langCodes.find(langCode =>
-        request.acceptsLanguages(langCode) === langCode))
-    .catch(error => debug(error))
+const getBrowserLangCode = async (request) => {
+  const langCodes = await utils.getLangCodes()
+
+  try {
+    return langCodes.find(langCode => request.acceptsLanguages(langCode) === langCode)
+  }
+  catch (error) {
+    debug(error)
+  }
+}
 
 /**
  * Redirect when there is no langcode.
@@ -27,13 +31,14 @@ const getBrowserLangCode = request =>
  * @param {Response} response
  *   Response object.
  */
-const redirect = (request, response) => {
+const redirect = async (request, response) => {
   const { originalUrl } = request
+  const routes = await utils.getRoutes()
 
-  utils.getRoutes()
-    .then(routes => routes.map(route => route.value.replace(/:channelId|:showId|:videoId/g, '([a-z]+)')))
-    .then(routes =>
-      routes.some((route) => {
+  try {
+    const routeIsValid = await routes
+      .map(route => route.value.replace(/:channelId|:showId|:videoId/g, '([a-z]+)'))
+      .some((route) => {
         if (route === '/') {
           if (route === originalUrl) {
             return true
@@ -42,23 +47,29 @@ const redirect = (request, response) => {
         }
 
         return RegExp(route).test(originalUrl)
-      }))
-    .then((routeIsValid) => {
-      if (!routeIsValid) {
-        response.status(404).render('layout', {
-          page: 'error',
-          title: response.t('Error 404'),
-          error: response.t('Sorry, we cannot find that!'),
-        })
+      })
+
+    if (!routeIsValid) {
+      response.status(404).render('layout', {
+        page: 'error',
+        title: response.t('Error 404'),
+        error: response.t('Sorry, we cannot find that!'),
+      })
+    }
+    else {
+      const langCode = await getBrowserLangCode(request)
+
+      try {
+        response.redirect(`/${langCode}${originalUrl}`)
       }
-      else {
-        getBrowserLangCode(request)
-          .then(langCode =>
-            response.redirect(`/${langCode}${originalUrl}`))
-          .catch(error => debug(error))
+      catch (error) {
+        debug(error)
       }
-    })
-    .catch(error => debug(error))
+    }
+  }
+  catch (error) {
+    debug(error)
+  }
 }
 
 export default redirect
