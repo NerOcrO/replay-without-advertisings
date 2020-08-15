@@ -3,16 +3,6 @@
   "version": "1.0.0",
   "description": "Replay without advertisings",
   "main": "index.js",
-  "scripts": {
-    "build_js": "babel src/javascripts --out-file public/script.js --source-maps",
-    "build_css": "cleancss -o public/style.css src/css/* --source-map",
-    "build": "rm -rf public && mkdir public && npm run build_js && npm run build_css",
-    "watch_js": "npm run build_js -- -w",
-    "watch_css": "watch -n 0.5 -x npm run build_css",
-    "test": "./node_modules/mocha/bin/mocha --require babel-core/register",
-    "dev": "npm run build && DEBUG=replay nodemon -- index.js",
-    "start": "npm run build && node -r babel-register index.js"
-  },
   "keywords": [
     "debug",
     "express",
@@ -28,31 +18,43 @@
     "node": ">=6.0.0",
     "npm": ">=3.8.6"
   },
-  "dependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-minify": "^0.4.3",
-    "babel-register": "^6.26.0",
-    "clean-css-cli": "^4.2.1",
-    "compression": "^1.7.3",
-    "debug": "^3.1.0",
-    "ejs": "^2.6.1",
-    "express": "^4.16.3",
-    "helmet": "^3.13.0",
-    "i18n": "^0.8.3",
-    "node-fetch": "^2.2.0"
-  },
-  "devDependencies": {
-    "chai": "^4.1.2",
-    "chai-as-promised": "^7.1.1",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "mocha": "^5.2.0",
-    "nodemon": "^1.18.4"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/NerOcrO/replay-without-advertisings"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
+    "babel-preset-minify": "^0.5.0",
+    "compression": "^1.7.4",
+    "debug": "^4.1.1",
+    "ejs": "^2.6.2",
+    "express": "^4.17.1",
+    "helmet": "^3.23.0",
+    "i18n": "^0.8.3",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "@babel/node": "^7.5.5",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "clean-css-cli": "^4.3.0",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "mocha": "^8.0.1",
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "build": "rm -rf public && mkdir public && npm run build_js && npm run build_css",
+    "build_css": "cleancss -o public/style.css src/css/*",
+    "build_js": "babel src/javascripts --out-file public/script.js",
+    "dev": "npm run build && DEBUG=replay nodemon -- index.js",
+    "start": "node -r @babel/register index.js",
+    "test": "mocha --require @babel/register",
+    "watch_css": "watch -n 0.5 -x npm run build_css",
+    "watch_js": "npm run build_js -- -w --source-maps"
   }
 }
